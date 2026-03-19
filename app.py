@@ -11,15 +11,13 @@ Deploy to Railway:
 """
 
 import os
-import pathlib
 import pandas as pd
 import plotly.express as px
 import panel as pn
 import warnings
-import gdown
-
+import gdown, pathlib
 warnings.filterwarnings("ignore")
-pn.extension("plotly", sizing_mode="stretch_width", template="fast")
+pn.extension("plotly", sizing_mode="stretch_width")
 
 # ── Colours ───────────────────────────────────────────────────────────────────
 BG         = "#1A1A2E"
@@ -43,26 +41,34 @@ PLOTLY_LAYOUT = dict(
 )
 
 # ── Data loading ──────────────────────────────────────────────────────────────
-DATA_DIR  = "/tmp/data"
+# On Railway: DATA_DIR is /app/data (files uploaded via GitHub LFS or download script)
+# Locally:    set DATA_DIR env var or falls back to ./data
+
+
+DATA_DIR = "/tmp/data"
 FOLDER_ID = "1aJZulbtsffKJK54CkvY62eS2n7iIllwq"
 
 def load_data():
     pathlib.Path(DATA_DIR).mkdir(parents=True, exist_ok=True)
 
-    # Download all files from Google Drive folder if any are missing
-    expected = ["articles_sample.csv", "customers_sample.csv", "transactions_sample_500k.csv"]
-    if not all(os.path.exists(os.path.join(DATA_DIR, f)) for f in expected):
-        print("Downloading data from Google Drive...")
-        gdown.download_folder(id=FOLDER_ID, output=DATA_DIR, quiet=False, use_cookies=False)
+    files = {
+        "articles_sample.csv":            "articles_sample.csv",
+        "customers_sample.csv":           "customers_sample.csv",
+        "transactions_sample_500k.csv":   "transactions_sample_500k.csv",
+    }
+
+    # Download any missing files from Google Drive folder
+    for fname in files:
+        fpath = os.path.join(DATA_DIR, fname)
+        if not os.path.exists(fpath):
+            print(f"Downloading {fname} from Google Drive...")
+            gdown.download_folder(
+                id=FOLDER_ID, output=DATA_DIR, quiet=False, use_cookies=False
+            )
+            break  # folder download gets all files at once
 
     print(f"Loading data from: {DATA_DIR}")
-
-    articles = pd.read_csv(
-        os.path.join(DATA_DIR, "articles_sample.csv"),
-        usecols=["article_id", "prod_name", "product_type_name",
-                 "garment_group_name", "colour_group_name", "index_group_name"],
-        dtype=str,
-    )
+    # ... rest of your existing load_data() code unchanged
 
     customers = pd.read_csv(
         os.path.join(DATA_DIR, "customers_sample.csv"),

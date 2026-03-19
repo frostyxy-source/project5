@@ -7,17 +7,20 @@ Run locally:
     panel serve app.py --show --port 5006
 
 Deploy to Railway:
-    Push to GitHub, connect Railway, it uses Procfile automatically.
+    Push to GitHub, Railway uses Procfile automatically.
 """
 
 import os
+import pathlib
+import warnings
+
+import gdown
 import pandas as pd
 import plotly.express as px
 import panel as pn
-import warnings
-import gdown, pathlib
+
 warnings.filterwarnings("ignore")
-pn.extension("plotly", sizing_mode="stretch_width")
+pn.extension("plotly", sizing_mode="stretch_width")  # NO template= here
 
 # ── Colours ───────────────────────────────────────────────────────────────────
 BG         = "#1A1A2E"
@@ -41,34 +44,25 @@ PLOTLY_LAYOUT = dict(
 )
 
 # ── Data loading ──────────────────────────────────────────────────────────────
-# On Railway: DATA_DIR is /app/data (files uploaded via GitHub LFS or download script)
-# Locally:    set DATA_DIR env var or falls back to ./data
-
-
-DATA_DIR = "/tmp/data"
+DATA_DIR  = "/tmp/data"
 FOLDER_ID = "1aJZulbtsffKJK54CkvY62eS2n7iIllwq"
+EXPECTED  = ["articles_sample.csv", "customers_sample.csv", "transactions_sample_500k.csv"]
 
 def load_data():
     pathlib.Path(DATA_DIR).mkdir(parents=True, exist_ok=True)
 
-    files = {
-        "articles_sample.csv":            "articles_sample.csv",
-        "customers_sample.csv":           "customers_sample.csv",
-        "transactions_sample_500k.csv":   "transactions_sample_500k.csv",
-    }
-
-    # Download any missing files from Google Drive folder
-    for fname in files:
-        fpath = os.path.join(DATA_DIR, fname)
-        if not os.path.exists(fpath):
-            print(f"Downloading {fname} from Google Drive...")
-            gdown.download_folder(
-                id=FOLDER_ID, output=DATA_DIR, quiet=False, use_cookies=False
-            )
-            break  # folder download gets all files at once
+    if not all(os.path.exists(os.path.join(DATA_DIR, f)) for f in EXPECTED):
+        print("Downloading data from Google Drive...")
+        gdown.download_folder(id=FOLDER_ID, output=DATA_DIR, quiet=False, use_cookies=False)
 
     print(f"Loading data from: {DATA_DIR}")
-    # ... rest of your existing load_data() code unchanged
+
+    articles = pd.read_csv(
+        os.path.join(DATA_DIR, "articles_sample.csv"),
+        usecols=["article_id", "prod_name", "product_type_name",
+                 "garment_group_name", "colour_group_name", "index_group_name"],
+        dtype=str,
+    )
 
     customers = pd.read_csv(
         os.path.join(DATA_DIR, "customers_sample.csv"),
@@ -159,7 +153,7 @@ def sec(label):
         sizing_mode="stretch_width",
     )
 
-# ── KPI cards row ─────────────────────────────────────────────────────────────
+# ── KPI cards ─────────────────────────────────────────────────────────────────
 @pn.depends(date_range, channel_filter)
 def kpi_row(*_):
     d = filtered()
@@ -169,14 +163,10 @@ def kpi_row(*_):
     repeat_rate = round((counts > 1).sum() / len(counts) * 100, 1)
     online_pct  = round(len(d[d["channel_label"] == "Online"]) / len(d) * 100, 1)
     return pn.Row(
-        kpi_card("Total transactions", f"{len(d):,}",
-                 "orders in period", ACCENT),
-        kpi_card("Unique customers",   f"{d['customer_id'].nunique():,}",
-                 "individual buyers", TEAL),
-        kpi_card("Repeat purchase rate", f"{repeat_rate}%",
-                 "industry avg ~25% — AI target", AMBER),
-        kpi_card("Online share", f"{online_pct}%",
-                 "of revenue is digital", GREEN),
+        kpi_card("Total transactions",   f"{len(d):,}",                    "orders in period",              ACCENT),
+        kpi_card("Unique customers",     f"{d['customer_id'].nunique():,}", "individual buyers",             TEAL),
+        kpi_card("Repeat purchase rate", f"{repeat_rate}%",                "industry avg ~25% — AI target", AMBER),
+        kpi_card("Online share",         f"{online_pct}%",                 "of revenue is digital",         GREEN),
         sizing_mode="stretch_width",
     )
 
@@ -260,9 +250,9 @@ def c_repeat(*_):
     total = seg["customers"].sum()
     seg["pct"] = (seg["customers"] / total * 100).round(1)
     colour_map = {
-        "One-time buyer":        ACCENT,
-        "2–3 purchases":         AMBER,
-        "4+ purchases (loyal)":  GREEN,
+        "One-time buyer":       ACCENT,
+        "2–3 purchases":        AMBER,
+        "4+ purchases (loyal)": GREEN,
     }
     fig = px.bar(seg, x="segment", y="customers",
                  title="Most customers never come back — this is the #1 problem AI solves",
@@ -275,9 +265,9 @@ def c_repeat(*_):
 
 @pn.depends(date_range, channel_filter)
 def c_returns(*_):
-    d    = filtered()
-    top  = (d.groupby("product_type_name")["article_id"].count()
-            .nlargest(12).reset_index())
+    d   = filtered()
+    top = (d.groupby("product_type_name")["article_id"].count()
+           .nlargest(12).reset_index())
     top.columns = ["product_type", "order_volume"]
     rates = {
         "Trousers": 47, "Dress": 52, "Blouse": 45, "Sweater": 38,
@@ -290,7 +280,7 @@ def c_returns(*_):
     top["est_returns"] = (top["order_volume"] * top["return_rate"] / 100).astype(int)
     top = top.sort_values("est_returns", ascending=True)
     fig = px.bar(top, x="est_returns", y="product_type", orientation="h",
-                 title="Most returned product types — Germany sector benchmarks (University of Bamberg / EHI 2024)",
+                 title="Most returned product types — Germany benchmarks (Bamberg / EHI 2024)",
                  labels={"est_returns": "Estimated returns", "product_type": ""},
                  color="return_rate",
                  color_continuous_scale=["#0F6E8C", "#F0A500", "#E94560"],
@@ -299,7 +289,7 @@ def c_returns(*_):
     fig.update_layout(**PLOTLY_LAYOUT, coloraxis_showscale=False, height=380)
     return pn.pane.Plotly(fig, sizing_mode="stretch_width", height=380)
 
-# ── Insight boxes (static — defined once) ────────────────────────────────────
+# ── Insight boxes ─────────────────────────────────────────────────────────────
 i_revenue  = insight_box(2, "Product Recommendations",
     "Revenue dips in summer and spikes pre-winter. An AI recommendation engine automatically "
     "triggers personalised re-engagement emails during slow periods. "
@@ -362,9 +352,7 @@ header = pn.pane.HTML(f"""
   </div>
   <div style="margin-top:12px;background:{CARD_BG};border-radius:6px;
               padding:10px 14px;border-left:3px solid {AMBER};">
-    <span style="font-size:11px;color:{AMBER};font-weight:700;">
-      WHY H&M DATA?&nbsp;&nbsp;
-    </span>
+    <span style="font-size:11px;color:{AMBER};font-weight:700;">WHY H&M DATA?&nbsp;&nbsp;</span>
     <span style="font-size:11px;color:{TEXT_MUTED};">
       H&M is the closest publicly available proxy for a DACH fashion SME —
       same European market, same 25–45 customer profile, same product categories,

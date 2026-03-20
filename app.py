@@ -44,15 +44,17 @@ PLOTLY_LAYOUT = dict(
 )
 
 # ── Data loading ──────────────────────────────────────────────────────────────
-DATA_DIR  = "/tmp/data"
-FOLDER_ID = "1aJZulbtsffKJK54CkvY62eS2n7iIllwq"
-EXPECTED  = ["articles_sample.csv", "customers_sample.csv", "transactions_sample_500k.csv"]
+DATA_DIR    = "/tmp/data"
+FOLDER_ID   = "1aJZulbtsffKJK54CkvY62eS2n7iIllwq"
+EXPECTED    = ["articles_sample.csv", "customers_sample.csv", "transactions_sample_500k.csv"]
+SCREENSHOTS = ["true.png", "false.png", "email.png"]
 
 def load_data():
     pathlib.Path(DATA_DIR).mkdir(parents=True, exist_ok=True)
 
-    if not all(os.path.exists(os.path.join(DATA_DIR, f)) for f in EXPECTED):
-        print("Downloading data from Google Drive...")
+    all_files = EXPECTED + SCREENSHOTS
+    if not all(os.path.exists(os.path.join(DATA_DIR, f)) for f in all_files):
+        print("Downloading data and assets from Google Drive...")
         gdown.download_folder(id=FOLDER_ID, output=DATA_DIR, quiet=False, use_cookies=False)
 
     print(f"Loading data from: {DATA_DIR}")
@@ -546,6 +548,251 @@ sidebar = pn.Column(
     styles={"background": CARD_BG, "padding": "18px"},
 )
 
+# ── N8N Demo Section ──────────────────────────────────────────────────────────
+def load_screenshot(filename):
+    """Load screenshot from DATA_DIR, return Panel Image or fallback HTML."""
+    path = os.path.join(DATA_DIR, filename)
+    if os.path.exists(path):
+        return pn.pane.Image(
+            path, sizing_mode="stretch_width",
+            styles={"border-radius": "8px", "border": f"1px solid {GRID_CLR}"}
+        )
+    return pn.pane.HTML(
+        f'<div style="background:{CARD_BG};border:1px dashed {GRID_CLR};border-radius:8px;'
+        f'padding:40px;text-align:center;color:{TEXT_MUTED};font-size:12px;">'
+        f'📷 {filename}</div>',
+        sizing_mode="stretch_width"
+    )
+
+n8n_divider = pn.pane.HTML(f"""
+<div style="margin:40px 0 0 0;">
+  <div style="height:3px;background:linear-gradient(90deg,{ACCENT},{TEAL},{PURPLE});
+              border-radius:2px;margin-bottom:28px;"></div>
+  <div style="background:linear-gradient(135deg,{CARD_BG} 0%,#0d1117 100%);
+              border:1px solid rgba(233,69,96,0.25);border-radius:12px;
+              padding:28px 32px;margin-bottom:8px;">
+    <div style="font-size:9px;color:{ACCENT};font-weight:700;letter-spacing:3px;
+                text-transform:uppercase;margin-bottom:10px;">
+      ⚡ LIVE IMPLEMENTATION DEMO — USE CASE 3
+    </div>
+    <div style="font-size:26px;font-weight:800;color:{TEXT_LT};line-height:1.25;margin-bottom:10px;">
+      Automated AI Return Risk Assistant
+      <span style="color:{ACCENT};"> Proposal for Chleo &amp; Balando GmbH</span>
+    </div>
+    <div style="font-size:13px;color:{TEXT_MUTED};max-width:820px;line-height:1.7;">
+      The workflow below was built and tested live during this engagement using
+      <b style="color:{TEXT_LT};">n8n Cloud + GPT-4o</b>.
+      It demonstrates exactly how Balando's return risk alerts would work in production —
+      a real order triggers a real AI assessment and a branded email lands in the operations
+      team's inbox within seconds. Every decision is logged and fully auditable.
+    </div>
+  </div>
+</div>
+""", sizing_mode="stretch_width")
+
+n8n_flow = pn.pane.HTML(f"""
+<div style="background:{CARD_BG};border-radius:10px;padding:22px 28px;margin-bottom:6px;">
+  <div style="font-size:9px;color:{TEAL};font-weight:700;letter-spacing:2px;margin-bottom:16px;">
+    THE WORKFLOW — 6 NODES, FULLY AUTOMATED
+  </div>
+  <div style="display:flex;align-items:center;flex-wrap:wrap;gap:6px;">
+    {''.join([f"""
+    <div style="background:{bg};border:1px solid {border};border-radius:6px;
+                padding:10px 14px;text-align:center;min-width:115px;">
+      <div style="font-size:16px;margin-bottom:4px;">{icon}</div>
+      <div style="font-size:10px;font-weight:700;color:{TEXT_LT};">{label}</div>
+      <div style="font-size:9px;color:{TEXT_MUTED};margin-top:2px;">{sub}</div>
+    </div>
+    <div style="font-size:18px;color:{TEXT_MUTED};padding:0 2px;">→</div>
+    """ for icon, label, sub, bg, border in [
+        ("🔗", "Webhook",     "POST trigger",    f"rgba(233,69,96,0.1)",  ACCENT),
+        ("📋", "Edit Fields", "Mock order data", f"rgba(15,110,140,0.1)", TEAL),
+        ("🤖", "GPT-4o",      "Score risk",      f"rgba(240,165,0,0.1)",  AMBER),
+        ("⚙️", "Code Node",   "Parse JSON",      f"rgba(46,204,113,0.1)", GREEN),
+        ("🔀", "IF Node",     "HIGH or LOW?",    f"rgba(155,89,182,0.1)", PURPLE),
+    ]])}
+    <div style="display:flex;flex-direction:column;gap:6px;">
+      <div style="background:rgba(233,69,96,0.1);border:1px solid {ACCENT};
+                  border-radius:6px;padding:8px 14px;text-align:center;min-width:115px;">
+        <div style="font-size:14px;margin-bottom:2px;">📧</div>
+        <div style="font-size:10px;font-weight:700;color:{ACCENT};">Gmail Alert</div>
+        <div style="font-size:9px;color:{TEXT_MUTED};">HIGH risk → fires</div>
+      </div>
+      <div style="background:{CARD_BG};border:1px solid {GRID_CLR};
+                  border-radius:6px;padding:8px 14px;text-align:center;min-width:115px;">
+        <div style="font-size:14px;margin-bottom:2px;">🔇</div>
+        <div style="font-size:10px;font-weight:700;color:{TEXT_MUTED};">No-op</div>
+        <div style="font-size:9px;color:{TEXT_MUTED};">LOW risk → silent</div>
+      </div>
+    </div>
+  </div>
+</div>
+""", sizing_mode="stretch_width")
+
+n8n_screenshots_header = pn.pane.HTML(f"""
+<div style="margin-top:8px;">
+  <div style="font-size:9px;color:{ACCENT};font-weight:700;letter-spacing:2px;
+              text-transform:uppercase;margin-bottom:8px;">
+    📸 LIVE TEST RESULTS — CAPTURED DURING THIS ENGAGEMENT
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:8px;">
+    <div style="background:{CARD_BG};border-left:3px solid {GREEN};
+                border-radius:6px;padding:10px 14px;">
+      <div style="font-size:10px;font-weight:700;color:{GREEN};">✅ HIGH RISK — TRUE BRANCH</div>
+      <div style="font-size:11px;color:{TEXT_MUTED};margin-top:3px;">
+        Dress · Size M · First purchase · Germany → score 85/100 → email fires
+      </div>
+    </div>
+    <div style="background:{CARD_BG};border-left:3px solid {TEAL};
+                border-radius:6px;padding:10px 14px;">
+      <div style="font-size:10px;font-weight:700;color:{TEAL};">🔇 LOW RISK — FALSE BRANCH</div>
+      <div style="font-size:11px;color:{TEXT_MUTED};margin-top:3px;">
+        Socks · Returning customer → low risk → no email, silent log
+      </div>
+    </div>
+    <div style="background:{CARD_BG};border-left:3px solid {AMBER};
+                border-radius:6px;padding:10px 14px;">
+      <div style="font-size:10px;font-weight:700;color:{AMBER};">📧 CHLEO'S INBOX</div>
+      <div style="font-size:11px;color:{TEXT_MUTED};margin-top:3px;">
+        Branded alert · Risk score · Top reason · Recommended action
+      </div>
+    </div>
+  </div>
+</div>
+""", sizing_mode="stretch_width")
+
+img_true  = load_screenshot("true.png")
+img_false = load_screenshot("false.png")
+img_email = load_screenshot("email.png")
+
+n8n_screenshots = pn.Row(
+    pn.Column(img_true,  sizing_mode="stretch_width"),
+    pn.Column(img_false, sizing_mode="stretch_width"),
+    pn.Column(img_email, sizing_mode="stretch_width"),
+    sizing_mode="stretch_width",
+)
+
+n8n_cost = pn.pane.HTML(f"""
+<div style="background:{CARD_BG};border-radius:10px;padding:22px 28px;margin-top:8px;">
+  <div style="font-size:9px;color:{AMBER};font-weight:700;letter-spacing:2px;margin-bottom:14px;">
+    💰 COST BREAKDOWN — GPT-4o PRICING (MARCH 2026)
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px;">
+    {''.join([f"""
+    <div style="background:{BG};border-radius:6px;padding:14px;text-align:center;">
+      <div style="font-size:20px;font-weight:800;color:{col};">{val}</div>
+      <div style="font-size:9px;color:{TEXT_MUTED};margin-top:4px;text-transform:uppercase;
+                  letter-spacing:1px;">{lbl}</div>
+    </div>
+    """ for val, col, lbl in [
+        ("~$0.01",    AMBER,  "cost per alert email"),
+        ("~$3–5",     GREEN,  "cost per 500 orders/day"),
+        ("~$30–50",   TEAL,   "cost per month (5K orders)"),
+        ("€20K–60K",  ACCENT, "estimated annual saving"),
+    ]])}
+  </div>
+  <div style="font-size:11px;color:{TEXT_MUTED};line-height:1.7;
+              border-top:1px solid {GRID_CLR};padding-top:12px;">
+    <b style="color:{TEXT_LT};">How the cost is calculated:</b>
+    Each order sends ~400 tokens to GPT-4o (system prompt + order details) and receives
+    ~100 tokens back (JSON risk score). At GPT-4o pricing of $2.50/1M input tokens and
+    $10/1M output tokens, each call costs approximately
+    <b style="color:{AMBER};">$0.001–0.002</b>.
+    Even at 1,000 orders/day the monthly AI cost is under <b style="color:{AMBER};">$60</b> —
+    against a logistics saving of <b style="color:{GREEN};">€1,500–5,000/month</b>.
+    ROI is positive from day one.
+  </div>
+</div>
+""", sizing_mode="stretch_width")
+
+n8n_production = pn.pane.HTML(f"""
+<div style="background:{CARD_BG};border-radius:10px;padding:22px 28px;margin-top:8px;">
+  <div style="font-size:9px;color:{TEAL};font-weight:700;letter-spacing:2px;margin-bottom:14px;">
+    🔌 FROM MOCK DATA TO BALANDO'S REAL WEBSHOP — 3 STEPS
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:14px;">
+    {''.join([f"""
+    <div style="background:{BG};border-radius:8px;padding:16px;border-top:3px solid {border};">
+      <div style="font-size:22px;margin-bottom:8px;">{icon}</div>
+      <div style="font-size:11px;font-weight:700;color:{TEXT_LT};margin-bottom:6px;">{title}</div>
+      <div style="font-size:10.5px;color:{TEXT_MUTED};line-height:1.65;">{body}</div>
+    </div>
+    """ for icon, title, body, border in [
+        ("🛒", "Connect Shopify or Shopware",
+         "Replace the 'Edit Fields' mock node with a Shopify trigger node. Every real order placed on Balando's store automatically fires the workflow. Takes ~15 minutes with an API key.",
+         TEAL),
+        ("🎯", "Enrich with Customer History",
+         "Add a database lookup node between the trigger and GPT-4o. Pull the customer's return history and feed it into the prompt — GPT-4o now knows if this customer has returned before.",
+         AMBER),
+        ("⚡", "Close the Loop",
+         "Add a Shopify node after the Gmail alert to tag the order as 'high-return-risk' in the backend automatically. The warehouse team sees the flag before picking and packing.",
+         ACCENT),
+    ]])}
+  </div>
+  <div style="background:rgba(15,110,140,0.1);border:1px solid {TEAL};
+              border-radius:6px;padding:12px 16px;">
+    <span style="font-size:10px;font-weight:700;color:{TEAL};">⏱ ESTIMATED PRODUCTION SETUP: </span>
+    <span style="font-size:10px;color:{TEXT_LT};">
+      2–3 days for a developer with Shopify API access. The n8n workflow built here
+      is already 80% of the final product — the core AI logic requires zero changes.
+    </span>
+  </div>
+</div>
+""", sizing_mode="stretch_width")
+
+n8n_future = pn.pane.HTML(f"""
+<div style="background:linear-gradient(135deg,{CARD_BG} 0%,#0d1117 100%);
+            border:1px solid rgba(233,69,96,0.2);border-radius:10px;
+            padding:22px 28px;margin-top:8px;margin-bottom:20px;">
+  <div style="font-size:9px;color:{ACCENT};font-weight:700;letter-spacing:2px;margin-bottom:6px;">
+    🚀 WHAT ELSE WE CAN BUILD — IF BALANDO CHOOSES US
+  </div>
+  <div style="font-size:12px;color:{TEXT_MUTED};margin-bottom:16px;">
+    The infrastructure built for this demo is reusable. Every additional use case plugs into
+    the same n8n + GPT-4o stack — no new tools, no new vendors, no new learning curve.
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+    {''.join([f"""
+    <div style="background:{BG};border-radius:8px;padding:14px 16px;border-left:3px solid {border};">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+        <span style="font-size:16px;">{icon}</span>
+        <span style="font-size:11px;font-weight:700;color:{TEXT_LT};">{title}</span>
+        <span style="margin-left:auto;font-size:8px;font-weight:700;color:{border};
+                     background:rgba(255,255,255,0.05);padding:2px 6px;border-radius:10px;">
+          {tag}
+        </span>
+      </div>
+      <div style="font-size:10px;color:{TEXT_MUTED};line-height:1.6;">{body}</div>
+    </div>
+    """ for icon, title, body, border, tag in [
+        ("🎯", "Personalised Email Recommendations",
+         "Order confirmed → GPT-4o generates 3 personalised product picks → Klaviyo sends branded email. Same n8n stack. Target: +5–10pp repeat purchase rate.",
+         TEAL, "USE CASE 2"),
+        ("💬", "Customer Support Auto-Classifier",
+         "Inbound email → GPT-4o classifies intent → drafts reply with live order data → sends automatically or routes to agent. Target: 30–40% tickets resolved with zero agent time.",
+         PURPLE, "USE CASE 3"),
+        ("📊", "Weekly AI Insight Digest for Chleo",
+         "Every Monday: n8n pulls KPIs → GPT-4o writes a 5-bullet executive summary with anomalies flagged → lands in Chleo's inbox before 8am. Zero manual reporting.",
+         AMBER, "BONUS"),
+        ("⚠️", "Stockout &amp; Overstock Early Warning",
+         "Daily inventory check: top SKU drops below threshold → GPT-4o drafts reorder recommendation → alert to buying team. Prevents lost sales and markdown waste.",
+         GREEN, "BONUS"),
+    ]])}
+  </div>
+  <div style="margin-top:16px;background:rgba(233,69,96,0.08);border:1px solid {ACCENT};
+              border-radius:8px;padding:16px 20px;text-align:center;">
+    <div style="font-size:13px;font-weight:700;color:{TEXT_LT};margin-bottom:4px;">
+      All four use cases. Same stack. Phased rollout. Full transparency.
+    </div>
+    <div style="font-size:11px;color:{TEXT_MUTED};">
+      Every AI decision logged in real time · Human override on every automated action ·
+      No black boxes · No vendor lock-in · Built for a team of 50–250, not 5,000.
+    </div>
+  </div>
+</div>
+""", sizing_mode="stretch_width")
+
+# ── Main layout ───────────────────────────────────────────────────────────────
 main = pn.Column(
     header,
     pn.Spacer(height=10),
@@ -578,7 +825,14 @@ main = pn.Column(
         pn.Column(c_repeat,  i_repeat,  sizing_mode="stretch_width"),
         sizing_mode="stretch_width",
     ),
-    pn.Spacer(height=20),
+    # ── N8N Demo Section ──────────────────────────────────────────────────────
+    n8n_divider,
+    n8n_flow,
+    n8n_screenshots_header,
+    n8n_screenshots,
+    n8n_cost,
+    n8n_production,
+    n8n_future,
     styles={"background": BG, "padding": "16px"},
     sizing_mode="stretch_width",
 )

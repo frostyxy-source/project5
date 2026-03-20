@@ -22,24 +22,27 @@ import panel as pn
 warnings.filterwarnings("ignore")
 pn.extension("plotly", sizing_mode="stretch_width")  # NO template= here
 
-# ── Colours ───────────────────────────────────────────────────────────────────
-BG         = "#1A1A2E"
-CARD_BG    = "#16213E"
-ACCENT     = "#E94560"
-TEAL       = "#0F6E8C"
-GREEN      = "#2ECC71"
-AMBER      = "#F0A500"
-PURPLE     = "#9B59B6"
-TEXT_LT    = "#F5F5F5"
-TEXT_MUTED = "#94A3B8"
-GRID_CLR   = "#2A2A4A"
+# ── Colours — Warm Cream / Luxury Fashion (Chloé / Bottega palette) ──────────
+BG         = "#FAF7F2"   # warm cream background
+CARD_BG    = "#FFFFFF"   # pure white cards
+ACCENT     = "#C9956A"   # warm terracotta / camel
+TEAL       = "#6B8F71"   # soft sage green
+GREEN      = "#7AAB82"   # muted sage
+AMBER      = "#D4A853"   # muted gold
+PURPLE     = "#A67B8A"   # dusty mauve / rose
+TEXT_LT    = "#2C2C2C"   # near-black — primary text
+TEXT_MUTED = "#8A7E72"   # warm grey — secondary text
+GRID_CLR   = "#E8E0D5"   # cream border / grid lines
 
 PLOTLY_LAYOUT = dict(
     paper_bgcolor="rgba(0,0,0,0)",
-    plot_bgcolor ="rgba(0,0,0,0)",
-    font=dict(color=TEXT_LT, family="Arial"),
-    xaxis=dict(gridcolor=GRID_CLR, zerolinecolor=GRID_CLR),
-    yaxis=dict(gridcolor=GRID_CLR, zerolinecolor=GRID_CLR),
+    plot_bgcolor ="#FDFBF8",
+    font=dict(color="#2C2C2C", family="Georgia, serif"),
+    title_font=dict(color="#2C2C2C", family="Georgia, serif", size=14),
+    xaxis=dict(gridcolor="#E8E0D5", zerolinecolor="#E8E0D5",
+               tickfont=dict(color="#8A7E72"), linecolor="#E8E0D5"),
+    yaxis=dict(gridcolor="#E8E0D5", zerolinecolor="#E8E0D5",
+               tickfont=dict(color="#8A7E72"), linecolor="#E8E0D5"),
     margin=dict(l=40, r=20, t=45, b=40),
 )
 
@@ -126,33 +129,37 @@ def insight_box(uc_num, uc_label, body_html, colour=TEAL):
     icons = {"1": "🔮", "2": "🎯", "3": "💬"}
     icon  = icons.get(str(uc_num), "💡")
     return pn.pane.HTML(f"""
-    <div style="background:{CARD_BG};border-left:4px solid {colour};
-                border-radius:6px;padding:14px 18px;margin-top:6px;margin-bottom:8px;">
-      <div style="font-size:10px;color:{colour};font-weight:700;letter-spacing:1px;
-                  text-transform:uppercase;margin-bottom:6px;">
+    <div style="background:#FDFAF6;border-left:4px solid {colour};
+                border-radius:6px;padding:14px 18px;margin-top:6px;margin-bottom:8px;
+                box-shadow:0 1px 6px rgba(0,0,0,0.05);">
+      <div style="font-size:9px;color:{colour};font-weight:700;letter-spacing:2px;
+                  text-transform:uppercase;margin-bottom:6px;font-family:Georgia,serif;">
         {icon} AI Use Case {uc_num} — {uc_label}
       </div>
-      <div style="font-size:12px;color:{TEXT_MUTED};line-height:1.65;">{body_html}</div>
+      <div style="font-size:12px;color:{TEXT_MUTED};line-height:1.7;">{body_html}</div>
     </div>
     """, sizing_mode="stretch_width")
 
 def kpi_card(label, value, sub, colour=ACCENT):
     return pn.pane.HTML(f"""
     <div style="background:{CARD_BG};border-left:4px solid {colour};
-                border-radius:8px;padding:16px 20px;">
-      <div style="font-size:10px;color:{TEXT_MUTED};letter-spacing:1px;
-                  text-transform:uppercase;margin-bottom:4px;">{label}</div>
-      <div style="font-size:26px;font-weight:700;color:{TEXT_LT};margin-bottom:3px;">{value}</div>
+                border-radius:8px;padding:16px 20px;
+                box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+      <div style="font-size:9px;color:{TEXT_MUTED};letter-spacing:2px;
+                  text-transform:uppercase;margin-bottom:6px;
+                  font-family:Georgia,serif;">{label}</div>
+      <div style="font-size:28px;font-weight:700;color:{TEXT_LT};margin-bottom:4px;
+                  font-family:Georgia,serif;">{value}</div>
       <div style="font-size:10px;color:{colour};font-style:italic;">{sub}</div>
     </div>
     """, sizing_mode="stretch_width")
 
 def sec(label):
     return pn.pane.HTML(
-        f"""<div style="color:{TEXT_MUTED};font-size:10px;font-weight:700;
-        letter-spacing:2px;text-transform:uppercase;
-        padding:10px 0 4px;border-bottom:1px solid {GRID_CLR};
-        margin-bottom:2px;">{label}</div>""",
+        f"""<div style="color:{ACCENT};font-size:9px;font-weight:700;
+        letter-spacing:3px;text-transform:uppercase;
+        padding:14px 0 6px;border-bottom:2px solid {ACCENT};
+        margin-bottom:4px;font-family:Georgia,serif;">{label}</div>""",
         sizing_mode="stretch_width",
     )
 
@@ -180,8 +187,8 @@ def c_revenue(*_):
     fig = px.line(d, x="month", y="price",
                   title="When does revenue peak? — Plan AI campaigns around these windows",
                   labels={"month": "", "price": "Revenue (normalised)"})
-    fig.update_traces(line_color=ACCENT, line_width=2.5,
-                      fill="tozeroy", fillcolor="rgba(233,69,96,0.08)")
+    fig.update_traces(line_color="#C9956A", line_width=2.5,
+                      fill="tozeroy", fillcolor="rgba(201,149,106,0.1)")
     fig.update_layout(**PLOTLY_LAYOUT)
     return pn.pane.Plotly(fig, sizing_mode="stretch_width", height=260)
 
@@ -192,7 +199,7 @@ def c_products(*_):
     fig = px.bar(d, x="price", y="product_type_name", orientation="h",
                  title="Where should the recommendation engine focus first?",
                  labels={"price": "Revenue (normalised)", "product_type_name": ""})
-    fig.update_traces(marker_color=ACCENT)
+    fig.update_traces(marker_color="#C9956A")
     fig.update_layout(**PLOTLY_LAYOUT, height=360)
     return pn.pane.Plotly(fig, sizing_mode="stretch_width", height=360)
 
@@ -201,8 +208,8 @@ def c_channel(*_):
     d   = filtered().groupby("channel_label")["price"].sum().reset_index()
     fig = px.pie(d, names="channel_label", values="price",
                  title="Online dominates — where AI delivers the highest ROI",
-                 color_discrete_sequence=[ACCENT, TEAL])
-    fig.update_layout(**PLOTLY_LAYOUT, legend=dict(font=dict(color=TEXT_LT)))
+                 color_discrete_sequence=["#C9956A", "#6B8F71"])
+    fig.update_layout(**PLOTLY_LAYOUT, legend=dict(font=dict(color="#2C2C2C")))
     return pn.pane.Plotly(fig, sizing_mode="stretch_width", height=260)
 
 @pn.depends(date_range, channel_filter)
@@ -212,7 +219,7 @@ def c_garment(*_):
     fig = px.bar(d, x="price", y="garment_group_name", orientation="h",
                  title="High-revenue garment groups = highest return risk — AI targets these first",
                  labels={"price": "Revenue (normalised)", "garment_group_name": ""})
-    fig.update_traces(marker_color=AMBER)
+    fig.update_traces(marker_color="#D4A853")
     fig.update_layout(**PLOTLY_LAYOUT)
     return pn.pane.Plotly(fig, sizing_mode="stretch_width", height=300)
 
@@ -222,7 +229,7 @@ def c_age(*_):
     fig  = px.histogram(ages, x="age", nbins=10,
                         title="Your core customer is 25–45 — they expect personalisation as standard",
                         labels={"age": "Age group", "count": "Customers"})
-    fig.update_traces(marker_color=PURPLE)
+    fig.update_traces(marker_color="#A67B8A")
     fig.update_layout(**PLOTLY_LAYOUT)
     return pn.pane.Plotly(fig, sizing_mode="stretch_width", height=260)
 
@@ -233,7 +240,7 @@ def c_colours(*_):
     fig = px.treemap(d, path=["colour_group_name"], values="price",
                      title="Colour demand is concentrated — AI prevents stockouts on core colours",
                      color="price",
-                     color_continuous_scale=["#16213E", ACCENT])
+                     color_continuous_scale=["#F0E8DE", "#C9956A"])
     fig.update_layout(**PLOTLY_LAYOUT, coloraxis_showscale=False)
     return pn.pane.Plotly(fig, sizing_mode="stretch_width", height=300)
 
@@ -253,9 +260,9 @@ def c_repeat(*_):
     total = seg["customers"].sum()
     seg["pct"] = (seg["customers"] / total * 100).round(1)
     colour_map = {
-        "One-time buyer":       ACCENT,
-        "2–3 purchases":        AMBER,
-        "4+ purchases (loyal)": GREEN,
+        "One-time buyer":       "#C9956A",
+        "2–3 purchases":        "#D4A853",
+        "4+ purchases (loyal)": "#6B8F71",
     }
     fig = px.bar(seg, x="segment", y="customers",
                  title="Most customers never come back — this is the #1 problem AI solves",
@@ -286,7 +293,7 @@ def c_returns(*_):
                  title="Most returned product types — Germany benchmarks (Bamberg / EHI 2024)",
                  labels={"est_returns": "Estimated returns", "product_type": ""},
                  color="return_rate",
-                 color_continuous_scale=["#0F6E8C", "#F0A500", "#E94560"],
+                 color_continuous_scale=["#6B8F71", "#D4A853", "#C9956A"],
                  text=top["return_rate"].apply(lambda x: f"{x}% return rate"))
     fig.update_traces(textposition="outside")
     fig.update_layout(**PLOTLY_LAYOUT, coloraxis_showscale=False, height=380)
@@ -296,58 +303,59 @@ def c_returns(*_):
 i_revenue  = insight_box(2, "Product Recommendations",
     "Revenue dips in summer and spikes pre-winter. An AI recommendation engine automatically "
     "triggers personalised re-engagement emails during slow periods. "
-    "<b style='color:#F5F5F5;'>Industry benchmark: personalised emails generate 3–5× higher "
+    "<b style='color:#2C2C2C;'>Industry benchmark: personalised emails generate 3–5× higher "
     "click rates than generic newsletters.</b>", TEAL)
 
 i_products = insight_box(2, "Product Recommendations",
     "Top 5 product types generate the majority of revenue. An AI model learns that a customer "
     "buying a dress is highly likely to want coordinating basics or shoes next. "
-    "<b style='color:#F5F5F5;'>Recommending the right product increases average order value "
+    "<b style='color:#2C2C2C;'>Recommending the right product increases average order value "
     "by 8–15% — with zero extra acquisition cost.</b>", TEAL)
 
 i_channel  = insight_box(3, "Customer Support Automation",
     "The majority of revenue is online → the majority of support tickets also arrive digitally. "
     "The n8n automation workflow auto-classifies and drafts replies to the 3 most common query types. "
-    "<b style='color:#F5F5F5;'>Automating 30–40% of inbound tickets frees 10–15 hours "
+    "<b style='color:#2C2C2C;'>Automating 30–40% of inbound tickets frees 10–15 hours "
     "of agent time per week.</b>", PURPLE)
 
 i_garment  = insight_box(1, "Return Rate Reduction",
     "Jersey basics, trousers and dresses are highest-revenue — and most returned. "
     "A return prediction model flags high-risk orders at checkout and shows a size guide. "
-    "<b style='color:#F5F5F5;'>Estimated saving: 10–15pp reduction = €30K–€60K/year "
+    "<b style='color:#2C2C2C;'>Estimated saving: 10–15pp reduction = €30K–€60K/year "
     "on a €5M revenue base.</b>", ACCENT)
 
 i_age      = insight_box(2, "Product Recommendations",
     "The 25–45 demographic is the most digitally native segment. "
-    "<b style='color:#F5F5F5;'>81% prefer brands that offer personalised experiences</b> — "
+    "<b style='color:#2C2C2C;'>81% prefer brands that offer personalised experiences</b> — "
     "and they switch to competitors that do. AI recommendations give Balando the same capability "
     "as Zalando without Zalando's engineering budget.", TEAL)
 
 i_colours  = insight_box(1, "Return Rate Reduction",
     "Black, grey, white and dark blue account for the majority of revenue — consistent across "
     "all European fashion markets. "
-    "<b style='color:#F5F5F5;'>AI demand forecasting ensures Balando never stockouts on core "
+    "<b style='color:#2C2C2C;'>AI demand forecasting ensures Balando never stockouts on core "
     "colours while avoiding overstock</b> that ends in 30–50% markdown losses.", ACCENT)
 
 i_repeat   = insight_box(2, "Product Recommendations",
     "The majority of customers buy once and never return. "
-    "<b style='color:#F5F5F5;'>Acquiring a new customer costs 5–7× more than retaining one.</b> "
+    "<b style='color:#2C2C2C;'>Acquiring a new customer costs 5–7× more than retaining one.</b> "
     "Moving just 10% of one-time buyers to a second purchase through a personalised email "
     "can increase annual revenue by 8–12% with near-zero incremental cost.", GREEN)
 
 i_returns  = insight_box(1, "Return Rate Reduction",
-    "<b style='color:#F5F5F5;'>Germany has the highest fashion return rate in Europe — "
+    "<b style='color:#2C2C2C;'>Germany has the highest fashion return rate in Europe — "
     "up to 52% for dresses and skirts</b> (University of Bamberg / EHI 2024). "
     "An AI return prediction model scores every order at checkout. "
     "A 10pp reduction saves €30K–€60K/year in direct logistics costs alone.", ACCENT)
 
 # ── Layout ────────────────────────────────────────────────────────────────────
 header = pn.pane.HTML(f"""
-<div style="position:relative;overflow:hidden;background:linear-gradient(135deg,{BG} 0%,#0d1117 100%);
-            padding:32px 36px 28px;border-bottom:2px solid {ACCENT};">
+<div style="position:relative;overflow:hidden;
+            background:linear-gradient(135deg,#FAF7F2 0%,#F5EFE6 100%);
+            padding:36px 40px 32px;border-bottom:2px solid #E8E0D5;">
 
   <!-- Fashion SVG background decorations -->
-  <svg style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;opacity:0.07;"
+  <svg style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;opacity:0.12;"
        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" preserveAspectRatio="xMidYMid slice">
 
     <!-- Dress silhouette 1 -->
@@ -418,42 +426,42 @@ header = pn.pane.HTML(f"""
   <!-- Content -->
   <div style="position:relative;z-index:2;">
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px;">
-      <div style="font-size:10px;color:{ACCENT};letter-spacing:3px;font-weight:700;">
+      <div style="font-size:9px;color:{ACCENT};letter-spacing:4px;font-weight:700;font-family:Georgia,serif;">
         ✦ BALANDO GMBH — CONFIDENTIAL ✦
       </div>
     </div>
 
-    <div style="font-size:28px;font-weight:800;color:{TEXT_LT};margin-bottom:6px;
-                letter-spacing:-0.5px;line-height:1.2;">
+    <div style="font-size:32px;font-weight:400;color:#2C2C2C;margin-bottom:6px;
+                letter-spacing:-0.5px;line-height:1.2;font-family:Georgia,serif;">
       AI-Powered Proposal Plan
-      <span style="color:{ACCENT};"> for Balando GmbH</span>
+      <span style="color:{ACCENT};font-style:italic;"> for Balando GmbH</span>
     </div>
 
     <div style="font-size:12px;color:{TEXT_MUTED};margin-bottom:20px;">
-      Prepared for <b style="color:{TEXT_LT};">Chleo, CEO</b> &nbsp;·&nbsp;
+      Prepared for <b style="color:#2C2C2C;">Chleo, CEO</b> &nbsp;·&nbsp;
       H&amp;M European Fashion Dataset · DACH Market Proxy &nbsp;·&nbsp;
       <b style="color:{ACCENT};">March 2026</b>
     </div>
 
     <!-- Executive Summary -->
-    <div style="background:rgba(22,33,62,0.85);border:1px solid rgba(233,69,96,0.3);
-                border-radius:10px;padding:18px 22px;backdrop-filter:blur(4px);
-                max-width:900px;">
-      <div style="font-size:10px;color:{ACCENT};font-weight:700;letter-spacing:2px;
-                  text-transform:uppercase;margin-bottom:12px;">
-        ⚡ Executive Summary — 3 Things You Need to Know
+    <div style="background:#FFFFFF;border:1px solid #E8E0D5;
+                border-radius:10px;padding:20px 24px;
+                box-shadow:0 2px 16px rgba(0,0,0,0.06);max-width:900px;">
+      <div style="font-size:9px;color:{ACCENT};font-weight:700;letter-spacing:3px;
+                  text-transform:uppercase;margin-bottom:14px;font-family:Georgia,serif;">
+        ✦ Executive Summary — 3 Things You Need to Know
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;">
 
         <div style="border-left:3px solid {ACCENT};padding-left:12px;">
           <div style="font-size:10px;color:{ACCENT};font-weight:700;text-transform:uppercase;
                       letter-spacing:1px;margin-bottom:4px;">🔴 Biggest Problem</div>
-          <div style="font-size:12px;color:{TEXT_LT};font-weight:600;margin-bottom:3px;">
+          <div style="font-size:12px;color:#2C2C2C;font-weight:600;margin-bottom:3px;">
             40–50% return rate
           </div>
           <div style="font-size:11px;color:{TEXT_MUTED};line-height:1.5;">
             Germany's fashion return rate is the highest in Europe. On a €5M revenue base
-            this costs Balando an estimated <b style="color:{TEXT_LT};">€100K–€200K/year</b>
+            this costs Balando an estimated <b style="color:#2C2C2C;font-weight:700;">€100K–€200K/year</b>
             in direct logistics alone.
           </div>
         </div>
@@ -461,12 +469,12 @@ header = pn.pane.HTML(f"""
         <div style="border-left:3px solid {TEAL};padding-left:12px;">
           <div style="font-size:10px;color:{TEAL};font-weight:700;text-transform:uppercase;
                       letter-spacing:1px;margin-bottom:4px;">🟢 Biggest Opportunity</div>
-          <div style="font-size:12px;color:{TEXT_LT};font-weight:600;margin-bottom:3px;">
+          <div style="font-size:12px;color:#2C2C2C;font-weight:600;margin-bottom:3px;">
             Most customers never return
           </div>
           <div style="font-size:11px;color:{TEXT_MUTED};line-height:1.5;">
             Over 60% of customers buy once and disappear. A personalised AI recommendation
-            engine moving just <b style="color:{TEXT_LT};">10% to a second purchase</b>
+            engine moving just <b style="color:#2C2C2C;font-weight:700;">10% to a second purchase</b>
             adds €150K–€400K in annual revenue — at zero acquisition cost.
           </div>
         </div>
@@ -474,12 +482,12 @@ header = pn.pane.HTML(f"""
         <div style="border-left:3px solid {AMBER};padding-left:12px;">
           <div style="font-size:10px;color:{AMBER};font-weight:700;text-transform:uppercase;
                       letter-spacing:1px;margin-bottom:4px;">⚡ Recommended First Step</div>
-          <div style="font-size:12px;color:{TEXT_LT};font-weight:600;margin-bottom:3px;">
+          <div style="font-size:12px;color:#2C2C2C;font-weight:600;margin-bottom:3px;">
             Start with support automation
           </div>
           <div style="font-size:11px;color:{TEXT_MUTED};line-height:1.5;">
             The fastest win: automate 30–40% of inbound support emails with n8n + AI.
-            <b style="color:{TEXT_LT};">Live in 4–6 weeks.</b> Every AI decision is
+            <b style="color:#2C2C2C;font-weight:700;">Live in 4–6 weeks.</b> Every AI decision is
             fully logged and visible — solving your transparency concern from day one.
           </div>
         </div>
@@ -488,8 +496,8 @@ header = pn.pane.HTML(f"""
     </div>
 
     <!-- WHY H&M note -->
-    <div style="margin-top:12px;background:rgba(15,110,140,0.15);border-radius:6px;
-                padding:8px 14px;border-left:3px solid {AMBER};max-width:900px;">
+    <div style="margin-top:14px;background:#FDF8F0;border-radius:6px;
+                padding:10px 16px;border-left:3px solid {AMBER};max-width:900px;">
       <span style="font-size:10px;color:{AMBER};font-weight:700;">WHY H&amp;M DATA?&nbsp;&nbsp;</span>
       <span style="font-size:10px;color:{TEXT_MUTED};">
         Closest publicly available proxy for a DACH fashion SME — same European market,
@@ -503,7 +511,7 @@ header = pn.pane.HTML(f"""
 
 sidebar = pn.Column(
     pn.pane.HTML(f"""
-    <div style="background:linear-gradient(135deg,{ACCENT},#c0392b);border-radius:8px;
+    <div style="background:linear-gradient(135deg,{ACCENT},#B5845A);border-radius:8px;
                 padding:12px 14px;margin-bottom:14px;text-align:center;">
       <div style="font-size:10px;color:white;font-weight:700;letter-spacing:2px;">
         🎛️ EXPLORE THE DATA
@@ -523,17 +531,17 @@ sidebar = pn.Column(
         3 AI Use Cases
       </div>
 
-      <div style="background:rgba(233,69,96,0.1);border-radius:6px;padding:8px 10px;margin-bottom:6px;">
+      <div style="background:rgba(201,149,106,0.1);border:1px solid rgba(201,149,106,0.3);border-radius:6px;padding:8px 10px;margin-bottom:6px;">
         <span style="color:{ACCENT};font-weight:700;">① Return Rate Reduction</span><br>
         <span style="font-size:10px;">Saves €20K–€60K/year</span>
       </div>
 
-      <div style="background:rgba(15,110,140,0.1);border-radius:6px;padding:8px 10px;margin-bottom:6px;">
+      <div style="background:rgba(107,143,113,0.1);border:1px solid rgba(107,143,113,0.3);border-radius:6px;padding:8px 10px;margin-bottom:6px;">
         <span style="color:{TEAL};font-weight:700;">② Product Recommendations</span><br>
         <span style="font-size:10px;">+€150K–€400K revenue</span>
       </div>
 
-      <div style="background:rgba(155,89,182,0.1);border-radius:6px;padding:8px 10px;margin-bottom:14px;">
+      <div style="background:rgba(166,123,138,0.1);border:1px solid rgba(166,123,138,0.3);border-radius:6px;padding:8px 10px;margin-bottom:14px;">
         <span style="color:{PURPLE};font-weight:700;">③ Support Automation</span><br>
         <span style="font-size:10px;">10–15 hrs saved/week</span>
       </div>
@@ -546,7 +554,7 @@ sidebar = pn.Column(
     </div>
     """),
     width=260,
-    styles={"background": CARD_BG, "padding": "16px", "overflow": "hidden"},
+    styles={"background": "#FFFFFF", "padding": "16px", "overflow": "hidden", "border-right": "1px solid #E8E0D5"},
 )
 
 # ── N8N Demo Section ──────────────────────────────────────────────────────────
@@ -1052,15 +1060,15 @@ main = pn.Column(
     ls_screenshots,
     ls_cost,
     ls_production,
-    styles={"background": BG, "padding": "16px"},
+    styles={"background": "#FAF7F2", "padding": "16px"},
     sizing_mode="stretch_width",
 )
 
 dashboard = pn.template.FastListTemplate(
     title             ="Balando — AI Opportunity Dashboard",
-    header_background = BG,
-    accent_base_color = ACCENT,
-    theme             ="dark",
+    header_background = "#FFFFFF",
+    accent_base_color = "#C9956A",
+    theme             ="default",
     sidebar           =[sidebar],
     main              =[main],
 )

@@ -340,53 +340,206 @@ i_returns  = insight_box(1, "Return Rate Reduction",
 
 # ── Layout ────────────────────────────────────────────────────────────────────
 header = pn.pane.HTML(f"""
-<div style="background:{BG};padding:20px 28px 16px;
-            border-bottom:2px solid {ACCENT};">
-  <div style="font-size:10px;color:{ACCENT};letter-spacing:2px;
-              font-weight:700;margin-bottom:4px;">BALANDO GMBH — CONFIDENTIAL</div>
-  <div style="font-size:22px;font-weight:700;color:{TEXT_LT};margin-bottom:4px;">
-    AI Opportunity Dashboard — Prepared for Chleo
-  </div>
-  <div style="font-size:11px;color:{TEXT_MUTED};">
-    H&M European Fashion Dataset · DACH Market Proxy · March 2026
-  </div>
-  <div style="margin-top:12px;background:{CARD_BG};border-radius:6px;
-              padding:10px 14px;border-left:3px solid {AMBER};">
-    <span style="font-size:11px;color:{AMBER};font-weight:700;">WHY H&M DATA?&nbsp;&nbsp;</span>
-    <span style="font-size:11px;color:{TEXT_MUTED};">
-      H&M is the closest publicly available proxy for a DACH fashion SME —
-      same European market, same 25–45 customer profile, same product categories,
-      same pain points (returns, low repeat rate, sizing issues).
-      Every pattern below exists in Balando's business today.
-    </span>
+<div style="position:relative;overflow:hidden;background:linear-gradient(135deg,{BG} 0%,#0d1117 100%);
+            padding:32px 36px 28px;border-bottom:2px solid {ACCENT};">
+
+  <!-- Fashion SVG background decorations -->
+  <svg style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;opacity:0.07;"
+       xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" preserveAspectRatio="xMidYMid slice">
+
+    <!-- Dress silhouette 1 -->
+    <g transform="translate(60,10)" fill="{ACCENT}">
+      <ellipse cx="40" cy="18" rx="14" ry="14"/>
+      <path d="M26 32 Q20 50 10 120 L70 120 Q60 50 54 32 Z"/>
+      <path d="M10 120 Q5 180 0 260 L80 260 Q75 180 70 120 Z"/>
+    </g>
+
+    <!-- Hanger -->
+    <g transform="translate(200,20)" stroke="{TEAL}" stroke-width="3" fill="none">
+      <path d="M60 0 Q60 20 30 35 Q0 50 0 70 L120 70 Q120 50 90 35 Q60 20 60 0"/>
+      <line x1="55" y1="0" x2="65" y2="0"/>
+      <path d="M58 0 Q60 -15 65 -10"/>
+    </g>
+
+    <!-- Dress silhouette 2 (right side) -->
+    <g transform="translate(950,5)" fill="{TEAL}">
+      <ellipse cx="40" cy="18" rx="14" ry="14"/>
+      <path d="M26 32 Q18 55 5 130 L75 130 Q62 55 54 32 Z"/>
+      <path d="M5 130 Q0 195 -5 270 L85 270 Q80 195 75 130 Z"/>
+    </g>
+
+    <!-- Shopping bag -->
+    <g transform="translate(1080,30)" stroke="{AMBER}" stroke-width="3" fill="none">
+      <rect x="0" y="30" width="80" height="90" rx="4"/>
+      <path d="M15 30 Q15 0 40 0 Q65 0 65 30"/>
+      <line x1="20" y1="55" x2="60" y2="55"/>
+    </g>
+
+    <!-- Tag / price label -->
+    <g transform="translate(400,25)" stroke="{PURPLE}" stroke-width="2.5" fill="none">
+      <path d="M0 0 L60 0 L75 20 L60 40 L0 40 Z"/>
+      <circle cx="12" cy="20" r="5"/>
+      <line x1="75" y1="20" x2="95" y2="5"/>
+      <line x1="18" y1="15" x2="55" y2="15"/>
+      <line x1="18" y1="25" x2="45" y2="25"/>
+    </g>
+
+    <!-- Scissors -->
+    <g transform="translate(700,15)" stroke="{ACCENT}" stroke-width="2.5" fill="none">
+      <circle cx="12" cy="12" r="10"/>
+      <circle cx="38" cy="12" r="10"/>
+      <line x1="19" y1="18" x2="70" y2="65"/>
+      <line x1="31" y1="18" x2="70" y2="65"/>
+    </g>
+
+    <!-- Needle and thread -->
+    <g transform="translate(830,40)" stroke="{GREEN}" stroke-width="2" fill="none">
+      <line x1="0" y1="0" x2="40" y2="80"/>
+      <ellipse cx="5" cy="5" rx="5" ry="8" transform="rotate(-60 5 5)"/>
+      <path d="M40 80 Q55 60 50 40 Q45 20 60 10 Q75 0 70 20 Q65 40 80 50"/>
+    </g>
+
+    <!-- Stars / sparkles -->
+    <g fill="{AMBER}" opacity="0.6">
+      <polygon points="550,20 553,28 562,28 555,33 558,42 550,37 542,42 545,33 538,28 547,28" transform="scale(0.7)"/>
+      <polygon points="150,200 152,206 158,206 153,209 155,215 150,212 145,215 147,209 142,206 148,206" transform="scale(0.5)"/>
+      <polygon points="1150,150 1152,156 1158,156 1153,159 1155,165 1150,162 1145,165 1147,159 1142,156 1148,156" transform="scale(0.6)"/>
+    </g>
+
+    <!-- Decorative circles -->
+    <circle cx="300" cy="250" r="80" stroke="{ACCENT}" stroke-width="1.5" fill="none" opacity="0.5"/>
+    <circle cx="900" cy="280" r="60" stroke="{TEAL}" stroke-width="1.5" fill="none" opacity="0.5"/>
+    <circle cx="600" cy="260" r="100" stroke="{PURPLE}" stroke-width="1" fill="none" opacity="0.3"/>
+  </svg>
+
+  <!-- Content -->
+  <div style="position:relative;z-index:2;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px;">
+      <div style="font-size:10px;color:{ACCENT};letter-spacing:3px;font-weight:700;">
+        ✦ BALANDO GMBH — CONFIDENTIAL ✦
+      </div>
+    </div>
+
+    <div style="font-size:28px;font-weight:800;color:{TEXT_LT};margin-bottom:6px;
+                letter-spacing:-0.5px;line-height:1.2;">
+      AI-Powered Proposal Plan
+      <span style="color:{ACCENT};"> for Balando GmbH</span>
+    </div>
+
+    <div style="font-size:12px;color:{TEXT_MUTED};margin-bottom:20px;">
+      Prepared for <b style="color:{TEXT_LT};">Chleo, CEO</b> &nbsp;·&nbsp;
+      H&amp;M European Fashion Dataset · DACH Market Proxy &nbsp;·&nbsp;
+      <b style="color:{ACCENT};">March 2026</b>
+    </div>
+
+    <!-- Executive Summary -->
+    <div style="background:rgba(22,33,62,0.85);border:1px solid rgba(233,69,96,0.3);
+                border-radius:10px;padding:18px 22px;backdrop-filter:blur(4px);
+                max-width:900px;">
+      <div style="font-size:10px;color:{ACCENT};font-weight:700;letter-spacing:2px;
+                  text-transform:uppercase;margin-bottom:12px;">
+        ⚡ Executive Summary — 3 Things You Need to Know
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;">
+
+        <div style="border-left:3px solid {ACCENT};padding-left:12px;">
+          <div style="font-size:10px;color:{ACCENT};font-weight:700;text-transform:uppercase;
+                      letter-spacing:1px;margin-bottom:4px;">🔴 Biggest Problem</div>
+          <div style="font-size:12px;color:{TEXT_LT};font-weight:600;margin-bottom:3px;">
+            40–50% return rate
+          </div>
+          <div style="font-size:11px;color:{TEXT_MUTED};line-height:1.5;">
+            Germany's fashion return rate is the highest in Europe. On a €5M revenue base
+            this costs Balando an estimated <b style="color:{TEXT_LT};">€100K–€200K/year</b>
+            in direct logistics alone.
+          </div>
+        </div>
+
+        <div style="border-left:3px solid {TEAL};padding-left:12px;">
+          <div style="font-size:10px;color:{TEAL};font-weight:700;text-transform:uppercase;
+                      letter-spacing:1px;margin-bottom:4px;">🟢 Biggest Opportunity</div>
+          <div style="font-size:12px;color:{TEXT_LT};font-weight:600;margin-bottom:3px;">
+            Most customers never return
+          </div>
+          <div style="font-size:11px;color:{TEXT_MUTED};line-height:1.5;">
+            Over 60% of customers buy once and disappear. A personalised AI recommendation
+            engine moving just <b style="color:{TEXT_LT};">10% to a second purchase</b>
+            adds €150K–€400K in annual revenue — at zero acquisition cost.
+          </div>
+        </div>
+
+        <div style="border-left:3px solid {AMBER};padding-left:12px;">
+          <div style="font-size:10px;color:{AMBER};font-weight:700;text-transform:uppercase;
+                      letter-spacing:1px;margin-bottom:4px;">⚡ Recommended First Step</div>
+          <div style="font-size:12px;color:{TEXT_LT};font-weight:600;margin-bottom:3px;">
+            Start with support automation
+          </div>
+          <div style="font-size:11px;color:{TEXT_MUTED};line-height:1.5;">
+            The fastest win: automate 30–40% of inbound support emails with n8n + AI.
+            <b style="color:{TEXT_LT};">Live in 4–6 weeks.</b> Every AI decision is
+            fully logged and visible — solving your transparency concern from day one.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- WHY H&M note -->
+    <div style="margin-top:12px;background:rgba(15,110,140,0.15);border-radius:6px;
+                padding:8px 14px;border-left:3px solid {AMBER};max-width:900px;">
+      <span style="font-size:10px;color:{AMBER};font-weight:700;">WHY H&amp;M DATA?&nbsp;&nbsp;</span>
+      <span style="font-size:10px;color:{TEXT_MUTED};">
+        Closest publicly available proxy for a DACH fashion SME — same European market,
+        same 25–45 customer profile, same pain points. Every pattern below exists in
+        Balando's business today.
+      </span>
+    </div>
   </div>
 </div>
 """, sizing_mode="stretch_width")
 
 sidebar = pn.Column(
-    pn.pane.HTML(f"<div style='color:{ACCENT};font-size:11px;font-weight:700;"
-                 f"letter-spacing:1px;margin-bottom:10px;'>FILTERS</div>"),
+    pn.pane.HTML(f"""
+    <div style="background:linear-gradient(135deg,{ACCENT},#c0392b);border-radius:8px;
+                padding:12px 14px;margin-bottom:14px;text-align:center;">
+      <div style="font-size:10px;color:white;font-weight:700;letter-spacing:2px;">
+        🎛️ EXPLORE THE DATA
+      </div>
+      <div style="font-size:9px;color:rgba(255,255,255,0.75);margin-top:3px;">
+        Use filters below to drill into any time period or channel
+      </div>
+    </div>
+    """),
     date_range,
     pn.layout.Divider(),
     channel_filter,
     pn.layout.Divider(),
     pn.pane.HTML(f"""
     <div style="font-size:11px;color:{TEXT_MUTED};line-height:1.9;">
-      <div style="color:{TEXT_LT};font-weight:600;margin-bottom:6px;">3 AI Use Cases</div>
-      <span style="color:{ACCENT};">&#9632;</span>
-      <b style="color:{TEXT_LT};"> Use Case 1</b><br>
-      &nbsp;&nbsp;&nbsp;Return Rate Reduction<br><br>
-      <span style="color:{TEAL};">&#9632;</span>
-      <b style="color:{TEXT_LT};"> Use Case 2</b><br>
-      &nbsp;&nbsp;&nbsp;Product Recommendations<br><br>
-      <span style="color:{PURPLE};">&#9632;</span>
-      <b style="color:{TEXT_LT};"> Use Case 3</b><br>
-      &nbsp;&nbsp;&nbsp;Support Automation<br><br>
+      <div style="color:{TEXT_LT};font-weight:600;margin-bottom:8px;font-size:12px;">
+        3 AI Use Cases
+      </div>
+
+      <div style="background:rgba(233,69,96,0.1);border-radius:6px;padding:8px 10px;margin-bottom:6px;">
+        <span style="color:{ACCENT};font-weight:700;">① Return Rate Reduction</span><br>
+        <span style="font-size:10px;">Saves €20K–€60K/year</span>
+      </div>
+
+      <div style="background:rgba(15,110,140,0.1);border-radius:6px;padding:8px 10px;margin-bottom:6px;">
+        <span style="color:{TEAL};font-weight:700;">② Product Recommendations</span><br>
+        <span style="font-size:10px;">+€150K–€400K revenue</span>
+      </div>
+
+      <div style="background:rgba(155,89,182,0.1);border-radius:6px;padding:8px 10px;margin-bottom:14px;">
+        <span style="color:{PURPLE};font-weight:700;">③ Support Automation</span><br>
+        <span style="font-size:10px;">10–15 hrs saved/week</span>
+      </div>
+
       <div style="color:{TEXT_LT};font-weight:600;margin-bottom:4px;">Dataset</div>
       H&M Kaggle — 500K rows<br>
       Sep 2018 → Sep 2020<br><br>
-      <div style="color:{TEXT_LT};font-weight:600;margin-bottom:4px;">Note</div>
-      Insight boxes below each<br>chart connect data to<br>Balando AI ROI.
+      <div style="color:{TEXT_LT};font-weight:600;margin-bottom:4px;">How to read</div>
+      <span style="font-size:10px;">Each chart has a coloured insight box below it — connecting the data directly to Balando's AI opportunity.</span>
     </div>
     """),
     width=240,

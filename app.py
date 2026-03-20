@@ -100,6 +100,7 @@ df = load_data()
 # ── Widgets ───────────────────────────────────────────────────────────────────
 date_range = pn.widgets.DateRangeSlider(
     name="Date range",
+    width=224,
     start=df["t_dat"].min(),
     end=df["t_dat"].max(),
     value=(df["t_dat"].min(), df["t_dat"].max()),
@@ -544,8 +545,8 @@ sidebar = pn.Column(
       <span style="font-size:10px;">Each chart has a coloured insight box below it — connecting the data directly to Balando's AI opportunity.</span>
     </div>
     """),
-    width=240,
-    styles={"background": CARD_BG, "padding": "18px"},
+    width=260,
+    styles={"background": CARD_BG, "padding": "16px", "overflow": "hidden"},
 )
 
 # ── N8N Demo Section ──────────────────────────────────────────────────────────
@@ -649,7 +650,7 @@ n8n_screenshots_header = pn.pane.HTML(f"""
 """, sizing_mode="stretch_width")
 
 # Screenshots rendered as pure HTML grid — no Panel layout overhead, no gap
-GITHUB_BASE = "https://raw.githubusercontent.com/frostyxy-source/project5/main"
+GITHUB_BASE = "https://raw.githubusercontent.com/frostyxy-source/project5/main/assets"
 
 def _img_src(filename):
     local = os.path.join(DATA_DIR, filename)
@@ -794,7 +795,7 @@ n8n_future = pn.pane.HTML(f"""
 
 
 # ── LangSmith Monitoring Section ─────────────────────────────────────────────
-GH_RAW = "https://raw.githubusercontent.com/frostyxy-source/project5/main"
+GH_RAW = "https://raw.githubusercontent.com/frostyxy-source/project5/main/assets"
 
 def _ls_img(filename):
     local = os.path.join(DATA_DIR, filename)

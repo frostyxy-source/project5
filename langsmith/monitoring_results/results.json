@@ -1,0 +1,352 @@
+[
+  {
+    "run_number": 1,
+    "customer_age": 63,
+    "customer_purchases": 3,
+    "avg_price_eur": 3.39,
+    "latency_ms": 5285,
+    "status": "✅ SUCCESS",
+    "recommendations": [
+      {
+        "product_name": "Casual Summer Dress",
+        "category": "Dresses",
+        "colour": "Light Beige",
+        "price_range": "€2–€5",
+        "reason": "Given your previous purchase of a dress and preference for Light Beige, this casual summer dress is a perfect addition to your wardrobe."
+      },
+      {
+        "product_name": "Knit Sweater",
+        "category": "Tops & Blouses",
+        "colour": "Greenish Khaki",
+        "price_range": "€2–€5",
+        "reason": "Since you have bought sweaters before and like Greenish Khaki, this knit sweater matches your style and keeps you cozy."
+      },
+      {
+        "product_name": "Basic T-Shirt",
+        "category": "Tops & Blouses",
+        "colour": "Light Beige",
+        "price_range": "€2–€5",
+        "reason": "A basic T-shirt in Light Beige will seamlessly fit into your wardrobe, aligning with your colour preference and casual style."
+      }
+    ],
+    "personalisation_score": "HIGH",
+    "confidence": 80,
+    "summary": "The recommendations focus on dresses and tops in your preferred colours and price range, aligning with your purchase history and style preferences.",
+    "raw_response": "{\n  \"recommendations\": [\n    {\n      \"product_name\": \"Casual Summer Dress\",\n      \"category\": \"Dresses\",\n      \"colour\": \"Light Beige\",\n      \"price_range\": \"€2–€5\",\n      \"reason\": \"Given your previous purchase of a dress and preference for Light Beige, this casual summer dress is a perfect addition to your wardrobe.\"\n    },\n    {\n      \"product_name\": \"Knit Sweater\",\n      \"category\": \"Tops & Blouses\",\n      \"colour\": \"Greenish Khaki\",\n      \"price_range\": \"€2–€5\",\n      \"reason\": \"Since you have bought sweaters before and like Greenish Khaki, this knit sweater matches your style and keeps you cozy.\"\n    },\n    {\n      \"product_name\": \"Basic T-Shirt\",\n      \"category\": \"Tops & Blouses\",\n      \"colour\": \"Light Beige\",\n      \"price_range\": \"€2–€5\",\n      \"reason\": \"A basic T-shirt in Light Beige will seamlessly fit into your wardrobe, aligning with your colour preference and casual style.\"\n    }\n  ],\n  \"personalisation_score\": \"HIGH\",\n  \"confidence\": 80,\n  \"summary\": \"The recommendations focus on dresses and tops in your preferred colours and price range, aligning with your purchase history and style preferences.\"\n}"
+  },
+  {
+    "run_number": 2,
+    "customer_age": 33,
+    "customer_purchases": 3,
+    "avg_price_eur": 1.86,
+    "latency_ms": 6038,
+    "status": "✅ SUCCESS",
+    "recommendations": [
+      {
+        "product_name": "Silver Hoop Earrings",
+        "category": "Accessories",
+        "colour": "Silver",
+        "price_range": "€1–€2",
+        "reason": "Based on your previous purchase of earrings and preference for silver, these Silver Hoop Earrings are a perfect match."
+      },
+      {
+        "product_name": "Light Pink Knotted Bikini Top",
+        "category": "Ladieswear",
+        "colour": "Light Pink",
+        "price_range": "€1–€2",
+        "reason": "Considering your last purchase was a bikini top and your fondness for light pink, this Light Pink Knotted Bikini Top aligns with your style."
+      },
+      {
+        "product_name": "Black Lace Underwear Bottom",
+        "category": "Ladieswear",
+        "colour": "Black",
+        "price_range": "€1–€2",
+        "reason": "Given your purchase history of underwear bottoms and preference for black, this Black Lace Underwear Bottom would complement your collection."
+      }
+    ],
+    "personalisation_score": "HIGH",
+    "confidence": 85,
+    "summary": "The recommendations focus on enhancing your accessories and swimwear collection with items that reflect your preferred colours and spending habits.",
+    "raw_response": "{\n  \"recommendations\": [\n    {\n      \"product_name\": \"Silver Hoop Earrings\",\n      \"category\": \"Accessories\",\n      \"colour\": \"Silver\",\n      \"price_range\": \"€1–€2\",\n      \"reason\": \"Based on your previous purchase of earrings and preference for silver, these Silver Hoop Earrings are a perfect match.\"\n    },\n    {\n      \"product_name\": \"Light Pink Knotted Bikini Top\",\n      \"category\": \"Ladieswear\",\n      \"colour\": \"Light Pink\",\n      \"price_range\": \"€1–€2\",\n      \"reason\": \"Considering your last purchase was a bikini top and your fondness for light pink, this Light Pink Knotted Bikini Top aligns with your style.\"\n    },\n    {\n      \"product_name\": \"Black Lace Underwear Bottom\",\n      \"category\": \"Ladieswear\",\n      \"colour\": \"Black\",\n      \"price_range\": \"€1–€2\",\n      \"reason\": \"Given your purchase history of underwear bottoms and preference for black, this Black Lace Underwear Bottom would complement your collection.\"\n    }\n  ],\n  \"personalisation_score\": \"HIGH\",\n  \"confidence\": 85,\n  \"summary\": \"The recommendations focus on enhancing your accessories and swimwear collection with items that reflect your preferred colours and spending habits.\"\n}"
+  },
+  {
+    "run_number": 3,
+    "customer_age": 21,
+    "customer_purchases": 3,
+    "avg_price_eur": 1.9,
+    "latency_ms": 4085,
+    "status": "✅ SUCCESS",
+    "recommendations": [
+      {
+        "product_name": "Basic Cotton T-shirt",
+        "category": "Tops & Blouses",
+        "colour": "Dark Orange",
+        "price_range": "€1–€2",
+        "reason": "Since you have previously purchased a T-shirt and favour the colour Dark Orange, this Basic Cotton T-shirt aligns well with your preferences and spending habits."
+      },
+      {
+        "product_name": "Grey Casual Tank Top",
+        "category": "Tops & Blouses",
+        "colour": "Grey",
+        "price_range": "€1–€2",
+        "reason": "Given your interest in casual wear and your preference for the colour Grey, the Grey Casual Tank Top is a great match for your style and budget."
+      },
+      {
+        "product_name": "Orange Comfort Bikini Bottom",
+        "category": "Swimwear",
+        "colour": "Dark Orange",
+        "price_range": "€1–€2",
+        "reason": "Considering your previous purchase of a bikini top and your favourite colour being Dark Orange, the Orange Comfort Bikini Bottom would complete your swimwear set while staying within your typical price range."
+      }
+    ],
+    "personalisation_score": "HIGH",
+    "confidence": 90,
+    "summary": "The recommendation strategy focuses on casual ladieswear in preferred colours within the customer's budget, enhancing their existing wardrobe.",
+    "raw_response": "{\n  \"recommendations\": [\n    {\n      \"product_name\": \"Basic Cotton T-shirt\",\n      \"category\": \"Tops & Blouses\",\n      \"colour\": \"Dark Orange\",\n      \"price_range\": \"€1–€2\",\n      \"reason\": \"Since you have previously purchased a T-shirt and favour the colour Dark Orange, this Basic Cotton T-shirt aligns well with your preferences and spending habits.\"\n    },\n    {\n      \"product_name\": \"Grey Casual Tank Top\",\n      \"category\": \"Tops & Blouses\",\n      \"colour\": \"Grey\",\n      \"price_range\": \"€1–€2\",\n      \"reason\": \"Given your interest in casual wear and your preference for the colour Grey, the Grey Casual Tank Top is a great match for your style and budget.\"\n    },\n    {\n      \"product_name\": \"Orange Comfort Bikini Bottom\",\n      \"category\": \"Swimwear\",\n      \"colour\": \"Dark Orange\",\n      \"price_range\": \"€1–€2\",\n      \"reason\": \"Considering your previous purchase of a bikini top and your favourite colour being Dark Orange, the Orange Comfort Bikini Bottom would complete your swimwear set while staying within your typical price range.\"\n    }\n  ],\n  \"personalisation_score\": \"HIGH\",\n  \"confidence\": 90,\n  \"summary\": \"The recommendation strategy focuses on casual ladieswear in preferred colours within the customer's budget, enhancing their existing wardrobe.\"\n}"
+  },
+  {
+    "run_number": 4,
+    "customer_age": 48,
+    "customer_purchases": 5,
+    "avg_price_eur": 2.39,
+    "latency_ms": 5532,
+    "status": "✅ SUCCESS",
+    "recommendations": [
+      {
+        "product_name": "Luna Light Blue T-shirt",
+        "category": "Tops & Blouses",
+        "colour": "Light Blue",
+        "price_range": "€2–€3",
+        "reason": "Since you have previously purchased a t-shirt and light blue is one of your favourite colours, the Luna Light Blue T-shirt aligns well with both your style preferences and past purchases."
+      },
+      {
+        "product_name": "Sienna Light Pink Scarf",
+        "category": "Accessories",
+        "colour": "Light Pink",
+        "price_range": "€2–€3",
+        "reason": "As a fan of light pink and having bought a scarf before, the Sienna Light Pink Scarf would be a perfect accessory to complement your collection."
+      },
+      {
+        "product_name": "Georgia Dark Blue Midi Skirt",
+        "category": "Trousers & Skirts",
+        "colour": "Dark Blue",
+        "price_range": "€2–€3",
+        "reason": "Considering your preference for dark blue and your past purchase of trousers, the Georgia Dark Blue Midi Skirt could be a versatile addition to your wardrobe."
+      }
+    ],
+    "personalisation_score": "HIGH",
+    "confidence": 85,
+    "summary": "The recommendations focus on your favourite colours and categories, with products that match your purchasing habits and typical price range.",
+    "raw_response": "{\n  \"recommendations\": [\n    {\n      \"product_name\": \"Luna Light Blue T-shirt\",\n      \"category\": \"Tops & Blouses\",\n      \"colour\": \"Light Blue\",\n      \"price_range\": \"€2–€3\",\n      \"reason\": \"Since you have previously purchased a t-shirt and light blue is one of your favourite colours, the Luna Light Blue T-shirt aligns well with both your style preferences and past purchases.\"\n    },\n    {\n      \"product_name\": \"Sienna Light Pink Scarf\",\n      \"category\": \"Accessories\",\n      \"colour\": \"Light Pink\",\n      \"price_range\": \"€2–€3\",\n      \"reason\": \"As a fan of light pink and having bought a scarf before, the Sienna Light Pink Scarf would be a perfect accessory to complement your collection.\"\n    },\n    {\n      \"product_name\": \"Georgia Dark Blue Midi Skirt\",\n      \"category\": \"Trousers & Skirts\",\n      \"colour\": \"Dark Blue\",\n      \"price_range\": \"€2–€3\",\n      \"reason\": \"Considering your preference for dark blue and your past purchase of trousers, the Georgia Dark Blue Midi Skirt could be a versatile addition to your wardrobe.\"\n    }\n  ],\n  \"personalisation_score\": \"HIGH\",\n  \"confidence\": 85,\n  \"summary\": \"The recommendations focus on your favourite colours and categories, with products that match your purchasing habits and typical price range.\"\n}"
+  },
+  {
+    "run_number": 5,
+    "customer_age": 21,
+    "customer_purchases": 3,
+    "avg_price_eur": 2.37,
+    "latency_ms": 5543,
+    "status": "✅ SUCCESS",
+    "recommendations": [
+      {
+        "product_name": "Basic Cotton T-Shirt",
+        "category": "Tops & Blouses",
+        "colour": "Black",
+        "price_range": "€2–€3",
+        "reason": "Since you enjoy versatile pieces and have purchased a blouse, this black basic cotton t-shirt fits well within your average spending range and matches your favourite colour."
+      },
+      {
+        "product_name": "Casual Summer Dress",
+        "category": "Dresses",
+        "colour": "Light Pink",
+        "price_range": "€2–€3",
+        "reason": "Given your previous purchase of a dress and preference for light pink, this casual summer dress is a charming addition that aligns with your style and budget."
+      },
+      {
+        "product_name": "Classic Knit Scarf",
+        "category": "Accessories",
+        "colour": "Dark Blue",
+        "price_range": "€2–€3",
+        "reason": "Since you appreciate dark blue and have shown interest in ladieswear, this classic knit scarf offers a stylish and practical accessory within your preferred price range."
+      }
+    ],
+    "personalisation_score": "HIGH",
+    "confidence": 85,
+    "summary": "The recommendations focus on affordable and stylish items in your favourite colours, aligning with your purchasing habits and spending preferences.",
+    "raw_response": "{\n  \"recommendations\": [\n    {\n      \"product_name\": \"Basic Cotton T-Shirt\",\n      \"category\": \"Tops & Blouses\",\n      \"colour\": \"Black\",\n      \"price_range\": \"€2–€3\",\n      \"reason\": \"Since you enjoy versatile pieces and have purchased a blouse, this black basic cotton t-shirt fits well within your average spending range and matches your favourite colour.\"\n    },\n    {\n      \"product_name\": \"Casual Summer Dress\",\n      \"category\": \"Dresses\",\n      \"colour\": \"Light Pink\",\n      \"price_range\": \"€2–€3\",\n      \"reason\": \"Given your previous purchase of a dress and preference for light pink, this casual summer dress is a charming addition that aligns with your style and budget.\"\n    },\n    {\n      \"product_name\": \"Classic Knit Scarf\",\n      \"category\": \"Accessories\",\n      \"colour\": \"Dark Blue\",\n      \"price_range\": \"€2–€3\",\n      \"reason\": \"Since you appreciate dark blue and have shown interest in ladieswear, this classic knit scarf offers a stylish and practical accessory within your preferred price range.\"\n    }\n  ],\n  \"personalisation_score\": \"HIGH\",\n  \"confidence\": 85,\n  \"summary\": \"The recommendations focus on affordable and stylish items in your favourite colours, aligning with your purchasing habits and spending preferences.\"\n}"
+  },
+  {
+    "run_number": 6,
+    "customer_age": 28,
+    "customer_purchases": 3,
+    "avg_price_eur": 0.63,
+    "latency_ms": 5283,
+    "status": "✅ SUCCESS",
+    "recommendations": [
+      {
+        "product_name": "Basic White T-Shirt",
+        "category": "Tops & Blouses",
+        "colour": "White",
+        "price_range": "€0.50–€1.00",
+        "reason": "Given your recent purchase of a t-shirt, your preference for white, and your typical spending range, this basic white t-shirt will perfectly fit your style and budget."
+      },
+      {
+        "product_name": "Black Mini Skirt",
+        "category": "Trousers & Skirts",
+        "colour": "Black",
+        "price_range": "€0.50–€1.00",
+        "reason": "Since you previously purchased a skirt and black is one of your favourite colours, this black mini skirt aligns with both your style preferences and spending habits."
+      },
+      {
+        "product_name": "Light Orange Vest Top",
+        "category": "Tops & Blouses",
+        "colour": "Light Orange",
+        "price_range": "€0.50–€1.00",
+        "reason": "Considering your interest in vest tops and your liking for light orange, this vest top would be a great addition to your wardrobe, fitting well within your budget."
+      }
+    ],
+    "personalisation_score": "HIGH",
+    "confidence": 85,
+    "summary": "The recommendations focus on tops and skirts in your favorite colors and align with your typical spending range, enhancing your existing wardrobe preferences.",
+    "raw_response": "{\n  \"recommendations\": [\n    {\n      \"product_name\": \"Basic White T-Shirt\",\n      \"category\": \"Tops & Blouses\",\n      \"colour\": \"White\",\n      \"price_range\": \"€0.50–€1.00\",\n      \"reason\": \"Given your recent purchase of a t-shirt, your preference for white, and your typical spending range, this basic white t-shirt will perfectly fit your style and budget.\"\n    },\n    {\n      \"product_name\": \"Black Mini Skirt\",\n      \"category\": \"Trousers & Skirts\",\n      \"colour\": \"Black\",\n      \"price_range\": \"€0.50–€1.00\",\n      \"reason\": \"Since you previously purchased a skirt and black is one of your favourite colours, this black mini skirt aligns with both your style preferences and spending habits.\"\n    },\n    {\n      \"product_name\": \"Light Orange Vest Top\",\n      \"category\": \"Tops & Blouses\",\n      \"colour\": \"Light Orange\",\n      \"price_range\": \"€0.50–€1.00\",\n      \"reason\": \"Considering your interest in vest tops and your liking for light orange, this vest top would be a great addition to your wardrobe, fitting well within your budget.\"\n    }\n  ],\n  \"personalisation_score\": \"HIGH\",\n  \"confidence\": 85,\n  \"summary\": \"The recommendations focus on tops and skirts in your favorite colors and align with your typical spending range, enhancing your existing wardrobe preferences.\"\n}"
+  },
+  {
+    "run_number": 7,
+    "customer_age": 56,
+    "customer_purchases": 3,
+    "avg_price_eur": 2.44,
+    "latency_ms": 5134,
+    "status": "✅ SUCCESS",
+    "recommendations": [
+      {
+        "product_name": "Blue Cotton Casual Trousers",
+        "category": "Trousers & Skirts",
+        "colour": "Blue",
+        "price_range": "€2–€3",
+        "reason": "Given your preference for trousers and the color blue, these casual trousers perfectly align with your style and budget."
+      },
+      {
+        "product_name": "Light Orange Summer Scarf",
+        "category": "Accessories",
+        "colour": "Light Orange",
+        "price_range": "€2–€3",
+        "reason": "To complement your love for light orange, this summer scarf combines style with affordability, fitting into your price range."
+      },
+      {
+        "product_name": "Greenish Khaki Relaxed Fit Shorts",
+        "category": "Trousers & Skirts",
+        "colour": "Greenish Khaki",
+        "price_range": "€2–€3",
+        "reason": "Since your last purchase was shorts and you favor greenish khaki, these relaxed fit shorts would be a great addition to your wardrobe."
+      }
+    ],
+    "personalisation_score": "HIGH",
+    "confidence": 85,
+    "summary": "Recommendations focus on trousers and accessories in your preferred colors and price range, reflecting your past purchase patterns and favorite hues.",
+    "raw_response": "{\n  \"recommendations\": [\n    {\n      \"product_name\": \"Blue Cotton Casual Trousers\",\n      \"category\": \"Trousers & Skirts\",\n      \"colour\": \"Blue\",\n      \"price_range\": \"€2–€3\",\n      \"reason\": \"Given your preference for trousers and the color blue, these casual trousers perfectly align with your style and budget.\"\n    },\n    {\n      \"product_name\": \"Light Orange Summer Scarf\",\n      \"category\": \"Accessories\",\n      \"colour\": \"Light Orange\",\n      \"price_range\": \"€2–€3\",\n      \"reason\": \"To complement your love for light orange, this summer scarf combines style with affordability, fitting into your price range.\"\n    },\n    {\n      \"product_name\": \"Greenish Khaki Relaxed Fit Shorts\",\n      \"category\": \"Trousers & Skirts\",\n      \"colour\": \"Greenish Khaki\",\n      \"price_range\": \"€2–€3\",\n      \"reason\": \"Since your last purchase was shorts and you favor greenish khaki, these relaxed fit shorts would be a great addition to your wardrobe.\"\n    }\n  ],\n  \"personalisation_score\": \"HIGH\",\n  \"confidence\": 85,\n  \"summary\": \"Recommendations focus on trousers and accessories in your preferred colors and price range, reflecting your past purchase patterns and favorite hues.\"\n}"
+  },
+  {
+    "run_number": 8,
+    "customer_age": 31,
+    "customer_purchases": 3,
+    "avg_price_eur": 3.51,
+    "latency_ms": 6189,
+    "status": "✅ SUCCESS",
+    "recommendations": [
+      {
+        "product_name": "Casual Black Midi Skirt",
+        "category": "Trousers & Skirts",
+        "colour": "Black",
+        "price_range": "€3-€5",
+        "reason": "Given your preference for black items and your previous purchase of trousers, this black midi skirt fits well within your style and budget."
+      },
+      {
+        "product_name": "Basic Blue T-Shirt",
+        "category": "Tops & Blouses",
+        "colour": "Blue",
+        "price_range": "€3-€5",
+        "reason": "You have shown an interest in blue, and this simple blue t-shirt matches your colour preference and typical spending range."
+      },
+      {
+        "product_name": "Black Knit Leggings",
+        "category": "Trousers & Skirts",
+        "colour": "Black",
+        "price_range": "€3-€5",
+        "reason": "Considering your previous purchase of leggings and your preference for black, these knit leggings would be a comfortable and stylish addition to your wardrobe."
+      }
+    ],
+    "personalisation_score": "HIGH",
+    "confidence": 85,
+    "summary": "The recommendations focus on the customer's preferred colours and spending habits, targeting their interest in practical and affordable fashion items.",
+    "raw_response": "{\n  \"recommendations\": [\n    {\n      \"product_name\": \"Casual Black Midi Skirt\",\n      \"category\": \"Trousers & Skirts\",\n      \"colour\": \"Black\",\n      \"price_range\": \"€3-€5\",\n      \"reason\": \"Given your preference for black items and your previous purchase of trousers, this black midi skirt fits well within your style and budget.\"\n    },\n    {\n      \"product_name\": \"Basic Blue T-Shirt\",\n      \"category\": \"Tops & Blouses\",\n      \"colour\": \"Blue\",\n      \"price_range\": \"€3-€5\",\n      \"reason\": \"You have shown an interest in blue, and this simple blue t-shirt matches your colour preference and typical spending range.\"\n    },\n    {\n      \"product_name\": \"Black Knit Leggings\",\n      \"category\": \"Trousers & Skirts\",\n      \"colour\": \"Black\",\n      \"price_range\": \"€3-€5\",\n      \"reason\": \"Considering your previous purchase of leggings and your preference for black, these knit leggings would be a comfortable and stylish addition to your wardrobe.\"\n    }\n  ],\n  \"personalisation_score\": \"HIGH\",\n  \"confidence\": 85,\n  \"summary\": \"The recommendations focus on the customer's preferred colours and spending habits, targeting their interest in practical and affordable fashion items.\"\n}"
+  },
+  {
+    "run_number": 9,
+    "customer_age": 31,
+    "customer_purchases": 4,
+    "avg_price_eur": 3.73,
+    "latency_ms": 6293,
+    "status": "✅ SUCCESS",
+    "recommendations": [
+      {
+        "product_name": "Classic Black Turtleneck Knitwear",
+        "category": "Tops & Blouses",
+        "colour": "Black",
+        "price_range": "€3–€5",
+        "reason": "As you enjoy dark shades and have previously purchased a jacket, a black turtleneck knitwear will complement your wardrobe, especially in the cooler months."
+      },
+      {
+        "product_name": "Dark Grey Casual Shorts",
+        "category": "Trousers & Skirts",
+        "colour": "Dark Grey",
+        "price_range": "€3–€5",
+        "reason": "Given your previous purchase of shorts and preference for darker colours, these dark grey casual shorts align well with your style and existing collection."
+      },
+      {
+        "product_name": "Dark Blue Lightweight Scarf",
+        "category": "Accessories",
+        "colour": "Dark Blue",
+        "price_range": "€3–€5",
+        "reason": "To add variety and cater to your love for dark blue, a lightweight scarf can be a versatile accessory for your wardrobe without exceeding your typical spending range."
+      }
+    ],
+    "personalisation_score": "HIGH",
+    "confidence": 85,
+    "summary": "Recommendations focus on dark colour preferences, past purchases of casual wear, and maintaining the low average spending range.",
+    "raw_response": "{\n  \"recommendations\": [\n    {\n      \"product_name\": \"Classic Black Turtleneck Knitwear\",\n      \"category\": \"Tops & Blouses\",\n      \"colour\": \"Black\",\n      \"price_range\": \"€3–€5\",\n      \"reason\": \"As you enjoy dark shades and have previously purchased a jacket, a black turtleneck knitwear will complement your wardrobe, especially in the cooler months.\"\n    },\n    {\n      \"product_name\": \"Dark Grey Casual Shorts\",\n      \"category\": \"Trousers & Skirts\",\n      \"colour\": \"Dark Grey\",\n      \"price_range\": \"€3–€5\",\n      \"reason\": \"Given your previous purchase of shorts and preference for darker colours, these dark grey casual shorts align well with your style and existing collection.\"\n    },\n    {\n      \"product_name\": \"Dark Blue Lightweight Scarf\",\n      \"category\": \"Accessories\",\n      \"colour\": \"Dark Blue\",\n      \"price_range\": \"€3–€5\",\n      \"reason\": \"To add variety and cater to your love for dark blue, a lightweight scarf can be a versatile accessory for your wardrobe without exceeding your typical spending range.\"\n    }\n  ],\n  \"personalisation_score\": \"HIGH\",\n  \"confidence\": 85,\n  \"summary\": \"Recommendations focus on dark colour preferences, past purchases of casual wear, and maintaining the low average spending range.\"\n}"
+  },
+  {
+    "run_number": 10,
+    "customer_age": 22,
+    "customer_purchases": 3,
+    "avg_price_eur": 2.67,
+    "latency_ms": 6112,
+    "status": "✅ SUCCESS",
+    "recommendations": [
+      {
+        "product_name": "Divided Basic T-Shirt",
+        "category": "Tops & Blouses",
+        "colour": "Black",
+        "price_range": "€2–€5",
+        "reason": "Given your preference for black and your interest in casual wear, this basic T-shirt complements your existing wardrobe and fits your spending habits."
+      },
+      {
+        "product_name": "Light Blue Denim Shorts",
+        "category": "Trousers & Skirts",
+        "colour": "Light Blue",
+        "price_range": "€2–€5",
+        "reason": "Since you recently bought shorts and enjoy light blue, these denim shorts are a great match for your style and budget."
+      },
+      {
+        "product_name": "Divided Sleeveless Top",
+        "category": "Tops & Blouses",
+        "colour": "Black",
+        "price_range": "€2–€5",
+        "reason": "With your affinity for black and casual styles, this sleeveless top will enhance your collection in an affordable way."
+      }
+    ],
+    "personalisation_score": "HIGH",
+    "confidence": 85,
+    "summary": "The recommendations focus on casual, affordable items in your favourite colours, aligning with your recent purchases and spending patterns.",
+    "raw_response": "{\n  \"recommendations\": [\n    {\n      \"product_name\": \"Divided Basic T-Shirt\",\n      \"category\": \"Tops & Blouses\",\n      \"colour\": \"Black\",\n      \"price_range\": \"€2–€5\",\n      \"reason\": \"Given your preference for black and your interest in casual wear, this basic T-shirt complements your existing wardrobe and fits your spending habits.\"\n    },\n    {\n      \"product_name\": \"Light Blue Denim Shorts\",\n      \"category\": \"Trousers & Skirts\",\n      \"colour\": \"Light Blue\",\n      \"price_range\": \"€2–€5\",\n      \"reason\": \"Since you recently bought shorts and enjoy light blue, these denim shorts are a great match for your style and budget.\"\n    },\n    {\n      \"product_name\": \"Divided Sleeveless Top\",\n      \"category\": \"Tops & Blouses\",\n      \"colour\": \"Black\",\n      \"price_range\": \"€2–€5\",\n      \"reason\": \"With your affinity for black and casual styles, this sleeveless top will enhance your collection in an affordable way.\"\n    }\n  ],\n  \"personalisation_score\": \"HIGH\",\n  \"confidence\": 85,\n  \"summary\": \"The recommendations focus on casual, affordable items in your favourite colours, aligning with your recent purchases and spending patterns.\"\n}"
+  }
+]

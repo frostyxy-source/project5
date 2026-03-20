@@ -1,0 +1,297 @@
+{
+  "name": "Balando",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "return-risk",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "ed0a8939-2246-4415-a72e-66dff0f59846",
+      "name": "Webhook",
+      "webhookId": "192c0063-ac76-4d87-8078-c1f448a46bb6"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1ff4e034-942c-4140-9cd4-305b48aceaba",
+              "name": "order_id",
+              "value": "ORD-420",
+              "type": "string"
+            },
+            {
+              "id": "8aa81d69-fbfe-40de-841b-e5c2c53eab95",
+              "name": "customer_name",
+              "value": "Sophie Müller",
+              "type": "string"
+            },
+            {
+              "id": "68d17ffe-892a-4ead-b2e8-46acf155ffa2",
+              "name": "customer_email",
+              "value": "sophie.mueller@cheapshoe.com",
+              "type": "string"
+            },
+            {
+              "id": "b1688163-ff61-4eed-8bab-63c20cbb6f27",
+              "name": "product_type",
+              "value": "dress",
+              "type": "string"
+            },
+            {
+              "id": "174b8f4a-c3cf-46cb-9a2b-9938cb156eb3",
+              "name": "size",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "ca70a414-83bb-43a2-8444-d31cb7cd3414",
+              "name": "price_eur",
+              "value": 69.69,
+              "type": "number"
+            },
+            {
+              "id": "cf4a5cbe-0a87-4a75-a5c3-be6bb7b3ad2f",
+              "name": "is_first_purchase",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "151eeaf9-b326-4ad6-a4b2-1e2915adf204",
+              "name": "sales_channel",
+              "value": "shopify",
+              "type": "string"
+            },
+            {
+              "id": "2365c12d-4f5e-4170-8109-58253f796edb",
+              "name": "customer_country",
+              "value": "Germany",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "fd1cd973-4538-4605-ae64-6f9cf64d8beb",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o",
+          "mode": "list",
+          "cachedResultName": "GPT-4O"
+        },
+        "responses": {
+          "values": [
+            {
+              "role": "system",
+              "content": "You are a return risk assistant for Balando GmbH, a German fashion e-commerce company. \nGermany has the highest fashion return rate in Europe (up to 50% for dresses). \nScore return likelihood and respond ONLY with valid JSON, no markdown, no code fences.\n\nYou MUST choose recommended_action from EXACTLY one of these four options, word for word:\n- \"Trigger size guide at checkout + include fit card in parcel\"\n- \"Send pre-shipment confirmation email with styling tips\"\n- \"Flag to warehouse: hold duplicate sizes pending confirmation\"\n- \"Activate post-delivery SMS satisfaction nudge\"\n\nRespond only with this JSON structure:\n{\n  \"risk_level\": \"HIGH\" or \"LOW\",\n  \"risk_score\": 0-100,\n  \"top_reason\": \"one sentence\",\n  \"recommended_action\": \"exact option from the list above\"\n} JSON:\n{\n  \"risk_level\": \"HIGH\" or \"LOW\",\n  \"risk_score\": 0–100,\n  \"top_reason\": \"one sentence\",\n  \"recommended_action\": \"one of the 4 pre-approved actions\"\n}\nDo not wrap your response in markdown or code fences."
+            },
+            {
+              "content": "=Order details:\n- Product: {{ $json.product_type }}\n- Size: {{ $json.size }}\n- Price: {{ $json.price_eur }}\n- First purchase: {{ $json.is_first_purchase }}\n- Sales channel: {{ $json.sales_channel }}\n- Country: \n{{ $json.customer_country }}\nScore the return risk.\n"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.1,
+      "position": [
+        416,
+        0
+      ],
+      "id": "e17205a1-01f5-483d-9cea-82be64333a40",
+      "name": "Message a model",
+      "credentials": {
+        "openAiApi": {
+          "id": "cHsbxaxukllmyguR",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const raw = $input.item.json.output[0].content[0].text;\nconst cleaned = raw.replace(/```json|```/g, \"\").trim();\nconst parsed = JSON.parse(cleaned);\n\nreturn {\n  json: {\n    ...parsed,\n    order_id:       $('Edit Fields').item.json.order_id,\n    customer_name:  $('Edit Fields').item.json.customer_name,\n    customer_email: $('Edit Fields').item.json.customer_email,\n    product_type:   $('Edit Fields').item.json.product_type,\n    price_eur:      $('Edit Fields').item.json.price_eur,\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        784,
+        -32
+      ],
+      "id": "b3139401-6772-4e1a-af5d-f7d281daaf6b",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "c12075fc-2543-4d85-9f8f-a72c382288e3",
+              "leftValue": "={{ $json.risk_level }}",
+              "rightValue": "=HIGH",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "e3fc6387-86c6-48b0-b17a-a7dcf1706307",
+              "leftValue": "",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        992,
+        -32
+      ],
+      "id": "820ffa3f-0677-41a2-b0e0-ba313cb5f681",
+      "name": "If"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1200,
+        64
+      ],
+      "id": "50b004f8-a262-4ff3-9c9b-28b1ba9585d3",
+      "name": "No Operation, do nothing"
+    },
+    {
+      "parameters": {
+        "sendTo": "frostyxy@gmail.com",
+        "subject": "=⚠️ High Return Risk — Order {{ $json.order_id }} ({{ $json.product_type }})",
+        "message": "=<div style=\"font-family:Arial,sans-serif;max-width:600px;margin:0 auto;\">    <div style=\"background:#E94560;padding:20px 24px;border-radius:8px 8px 0 0;\">     <h2 style=\"color:white;margin:0;font-size:20px;\">       ⚠️ Return Risk Alert — Balando AI     </h2>     <p style=\"color:rgba(255,255,255,0.8);margin:6px 0 0;font-size:13px;\">       Automated alert · Action required before shipment     </p>   </div>    <div style=\"background:#f9f9f9;padding:24px;border-radius:0 0 8px 8px;border:1px solid #eee;\">          <table style=\"width:100%;border-collapse:collapse;margin-bottom:20px;\">       <tr>         <td style=\"padding:8px 0;color:#888;font-size:13px;width:40%;\">Order ID</td>         <td style=\"padding:8px 0;font-weight:bold;font-size:13px;\">{{ $json.order_id }}</td>       </tr>       <tr style=\"border-top:1px solid #eee;\">         <td style=\"padding:8px 0;color:#888;font-size:13px;\">Customer</td>         <td style=\"padding:8px 0;font-weight:bold;font-size:13px;\">{{ $json.customer_name }}</td>       </tr>       <tr style=\"border-top:1px solid #eee;\">         <td style=\"padding:8px 0;color:#888;font-size:13px;\">Product</td>         <td style=\"padding:8px 0;font-weight:bold;font-size:13px;\">{{ $json.product_type }} — €{{ $json.price_eur }}</td>       </tr>     </table>      <div style=\"background:#fff3f3;border-left:4px solid #E94560;padding:16px;border-radius:4px;margin-bottom:16px;\">       <div style=\"font-size:11px;color:#E94560;font-weight:bold;letter-spacing:1px;margin-bottom:8px;\">         RISK ASSESSMENT       </div>       <div style=\"font-size:24px;font-weight:bold;color:#E94560;margin-bottom:4px;\">         {{ $json.risk_score }}/100       </div>       <div style=\"font-size:13px;color:#333;\">         {{ $json.top_reason }}       </div>     </div>      <div style=\"background:#f0f7ff;border-left:4px solid #0F6E8C;padding:16px;border-radius:4px;\">       <div style=\"font-size:11px;color:#0F6E8C;font-weight:bold;letter-spacing:1px;margin-bottom:8px;\">         RECOMMENDED ACTION       </div>       <div style=\"font-size:14px;color:#333;font-weight:600;\">         {{ $json.recommended_action }}       </div>     </div>      <p style=\"font-size:11px;color:#aaa;margin-top:20px;text-align:center;\">       Generated by Balando AI · Every decision is logged and auditable ·        <a href=\"#\" style=\"color:#aaa;\">View all alerts</a>     </p>    </div> </div>",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1200,
+        -128
+      ],
+      "id": "ada67960-0c40-4f5e-99b3-cc5af4c2745f",
+      "name": "Send a message",
+      "webhookId": "591e25ff-9b11-430e-b5f6-855505c425b0",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "c1hO4bsJrea7SkzY",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "eb83287c-4daf-4490-838a-11bdc2877eaa",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "87b783c672ce40f86dcaa91741abb6342ce3dff999802f6e449036b811ad6b44"
+  },
+  "id": "g8nPKdqmNdKR7kwH",
+  "tags": []
+}

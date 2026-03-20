@@ -792,6 +792,217 @@ n8n_future = pn.pane.HTML(f"""
 </div>
 """, sizing_mode="stretch_width")
 
+
+# ── LangSmith Monitoring Section ─────────────────────────────────────────────
+GH_RAW = "https://raw.githubusercontent.com/frostyxy-source/project5/main"
+
+def _ls_img(filename):
+    local = os.path.join(DATA_DIR, filename)
+    if os.path.exists(local):
+        import base64
+        with open(local, "rb") as f2:
+            b64 = base64.b64encode(f2.read()).decode()
+        return f"data:image/png;base64,{b64}"
+    return f"{GH_RAW}/{filename}"
+
+ls_divider = pn.pane.HTML(f"""
+<div style="margin:40px 0 0 0;">
+  <div style="height:3px;background:linear-gradient(90deg,{TEAL},{GREEN},{AMBER});
+              border-radius:2px;margin-bottom:28px;"></div>
+  <div style="background:linear-gradient(135deg,{CARD_BG} 0%,#0d1117 100%);
+              border:1px solid rgba(15,110,140,0.35);border-radius:12px;
+              padding:28px 32px;margin-bottom:8px;">
+    <div style="font-size:9px;color:{TEAL};font-weight:700;letter-spacing:3px;
+                text-transform:uppercase;margin-bottom:10px;">
+      MONITORING DEMO — USE CASE 2
+    </div>
+    <div style="font-size:26px;font-weight:800;color:{TEXT_LT};line-height:1.25;margin-bottom:10px;">
+      LangSmith Monitoring —
+      <span style="color:{TEAL};"> The Answer to the Black Box Problem</span>
+    </div>
+    <div style="font-size:13px;color:{TEXT_MUTED};max-width:820px;line-height:1.7;">
+      Chleo asked: <b style="color:{TEXT_LT};">"AI is a black box — I cannot see what it is doing."</b>
+      This is the direct answer. Every GPT-4o recommendation call is fully logged in LangSmith —
+      the exact customer profile sent in, the exact recommendations returned, token usage, latency,
+      and cost per call. Nothing is hidden. Every decision is auditable, timestamped and searchable.
+      Built using <b style="color:{TEXT_LT};">LangChain + GPT-4o + real H&amp;M customer data</b>
+      as a proxy for Balando's own customer base.
+    </div>
+  </div>
+</div>
+""", sizing_mode="stretch_width")
+
+ls_captures = pn.pane.HTML(f"""
+<div style="background:{CARD_BG};border-radius:10px;padding:22px 28px;margin-bottom:8px;">
+  <div style="font-size:9px;color:{TEAL};font-weight:700;letter-spacing:2px;margin-bottom:14px;">
+    WHAT LANGSMITH CAPTURES PER AI CALL — AUTOMATICALLY
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
+    <div style="background:{BG};border-radius:8px;padding:14px;border-top:3px solid {TEAL};">
+      <div style="font-size:18px;margin-bottom:6px;">📥</div>
+      <div style="font-size:11px;font-weight:700;color:{TEXT_LT};margin-bottom:4px;">Full Input</div>
+      <div style="font-size:10px;color:{TEXT_MUTED};line-height:1.55;">Exact customer profile sent to GPT-4o — age, purchase history, colours, price range.</div>
+    </div>
+    <div style="background:{BG};border-radius:8px;padding:14px;border-top:3px solid {GREEN};">
+      <div style="font-size:18px;margin-bottom:6px;">📤</div>
+      <div style="font-size:11px;font-weight:700;color:{TEXT_LT};margin-bottom:4px;">Full Output</div>
+      <div style="font-size:10px;color:{TEXT_MUTED};line-height:1.55;">3 recommendations returned — product, colour, price range and personalised reason.</div>
+    </div>
+    <div style="background:{BG};border-radius:8px;padding:14px;border-top:3px solid {AMBER};">
+      <div style="font-size:18px;margin-bottom:6px;">⚡</div>
+      <div style="font-size:11px;font-weight:700;color:{TEXT_LT};margin-bottom:4px;">Latency and Tokens</div>
+      <div style="font-size:10px;color:{TEXT_MUTED};line-height:1.55;">Response time in ms, input tokens (541), output tokens (278), total (819) per call.</div>
+    </div>
+    <div style="background:{BG};border-radius:8px;padding:14px;border-top:3px solid {ACCENT};">
+      <div style="font-size:18px;margin-bottom:6px;">💰</div>
+      <div style="font-size:11px;font-weight:700;color:{TEXT_LT};margin-bottom:4px;">Cost Per Call</div>
+      <div style="font-size:10px;color:{TEXT_MUTED};line-height:1.55;">Exact USD cost logged per run. 10 calls cost ~$0.02 total. No surprise bills.</div>
+    </div>
+    <div style="background:{BG};border-radius:8px;padding:14px;border-top:3px solid {PURPLE};">
+      <div style="font-size:18px;margin-bottom:6px;">🏷️</div>
+      <div style="font-size:11px;font-weight:700;color:{TEXT_LT};margin-bottom:4px;">Metadata Tags</div>
+      <div style="font-size:10px;color:{TEXT_MUTED};line-height:1.55;">Every run tagged: customer_age, top_category, use_case, club_member for filtering.</div>
+    </div>
+    <div style="background:{BG};border-radius:8px;padding:14px;border-top:3px solid {TEAL};">
+      <div style="font-size:18px;margin-bottom:6px;">🔎</div>
+      <div style="font-size:11px;font-weight:700;color:{TEXT_LT};margin-bottom:4px;">Searchable</div>
+      <div style="font-size:10px;color:{TEXT_MUTED};line-height:1.55;">Filter by tag, date, model or outcome. Find any decision ever made instantly.</div>
+    </div>
+    <div style="background:{BG};border-radius:8px;padding:14px;border-top:3px solid {GREEN};">
+      <div style="font-size:18px;margin-bottom:6px;">✅</div>
+      <div style="font-size:11px;font-weight:700;color:{TEXT_LT};margin-bottom:4px;">Pass/Fail Status</div>
+      <div style="font-size:10px;color:{TEXT_MUTED};line-height:1.55;">Each run shows green (success) or red (error). Failed calls flagged for review immediately.</div>
+    </div>
+    <div style="background:{BG};border-radius:8px;padding:14px;border-top:3px solid {AMBER};">
+      <div style="font-size:18px;margin-bottom:6px;">📊</div>
+      <div style="font-size:11px;font-weight:700;color:{TEXT_LT};margin-bottom:4px;">Dataset Linked</div>
+      <div style="font-size:10px;color:{TEXT_MUTED};line-height:1.55;">Every run linked to balando-recommendation-dataset — input vs output at a glance.</div>
+    </div>
+  </div>
+</div>
+""", sizing_mode="stretch_width")
+
+ls_screenshots_header = pn.pane.HTML(f"""
+<div style="margin-top:4px;">
+  <div style="font-size:9px;color:{TEAL};font-weight:700;letter-spacing:2px;
+              text-transform:uppercase;margin-bottom:8px;">
+    LIVE LANGSMITH SCREENSHOTS — CAPTURED DURING THIS ENGAGEMENT
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:8px;">
+    <div style="background:{CARD_BG};border-left:3px solid {TEAL};border-radius:6px;padding:10px 14px;">
+      <div style="font-size:10px;font-weight:700;color:{TEAL};">📊 10 Traced Runs</div>
+      <div style="font-size:10px;color:{TEXT_MUTED};margin-top:3px;">All 10 GPT-4o calls with status and latency</div>
+    </div>
+    <div style="background:{CARD_BG};border-left:3px solid {GREEN};border-radius:6px;padding:10px 14px;">
+      <div style="font-size:10px;font-weight:700;color:{GREEN};">👤 Customer Input</div>
+      <div style="font-size:10px;color:{TEXT_MUTED};margin-top:3px;">Exact profile sent — age, history, colours</div>
+    </div>
+    <div style="background:{CARD_BG};border-left:3px solid {AMBER};border-radius:6px;padding:10px 14px;">
+      <div style="font-size:10px;font-weight:700;color:{AMBER};">🎯 Recommendations Output</div>
+      <div style="font-size:10px;color:{TEXT_MUTED};margin-top:3px;">3 personalised picks with confidence score</div>
+    </div>
+    <div style="background:{CARD_BG};border-left:3px solid {PURPLE};border-radius:6px;padding:10px 14px;">
+      <div style="font-size:10px;font-weight:700;color:{PURPLE};">📝 Full Prompt Visible</div>
+      <div style="font-size:10px;color:{TEXT_MUTED};margin-top:3px;">System + user message fully inspectable</div>
+    </div>
+  </div>
+</div>
+""", sizing_mode="stretch_width")
+
+ls_screenshots = pn.pane.HTML(
+    f'''<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
+  <img src="{_ls_img("balando-uc2-recommendations10call.png")}"
+       style="width:100%;border-radius:8px;border:1px solid #2A2A4A;display:block;" />
+  <img src="{_ls_img("customerprofile.png")}"
+       style="width:100%;border-radius:8px;border:1px solid #2A2A4A;display:block;" />
+  <img src="{_ls_img("recommendations.png")}"
+       style="width:100%;border-radius:8px;border:1px solid #2A2A4A;display:block;" />
+  <img src="{_ls_img("balandolangsmithprompt.png")}"
+       style="width:100%;border-radius:8px;border:1px solid #2A2A4A;display:block;" />
+</div>''',
+    sizing_mode="stretch_width",
+)
+
+ls_cost = pn.pane.HTML(f"""
+<div style="background:{CARD_BG};border-radius:10px;padding:22px 28px;margin-top:4px;">
+  <div style="font-size:9px;color:{AMBER};font-weight:700;letter-spacing:2px;margin-bottom:14px;">
+    COST BREAKDOWN — LANGSMITH + GPT-4o RECOMMENDATION ENGINE
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px;">
+    <div style="background:{BG};border-radius:6px;padding:14px;text-align:center;">
+      <div style="font-size:20px;font-weight:800;color:{AMBER};">~$0.002</div>
+      <div style="font-size:9px;color:{TEXT_MUTED};margin-top:4px;text-transform:uppercase;letter-spacing:1px;">cost per recommendation call</div>
+    </div>
+    <div style="background:{BG};border-radius:6px;padding:14px;text-align:center;">
+      <div style="font-size:20px;font-weight:800;color:{GREEN};">~$0.02</div>
+      <div style="font-size:9px;color:{TEXT_MUTED};margin-top:4px;text-transform:uppercase;letter-spacing:1px;">cost for 10 customer profiles</div>
+    </div>
+    <div style="background:{BG};border-radius:6px;padding:14px;text-align:center;">
+      <div style="font-size:20px;font-weight:800;color:{TEAL};">~$6-10</div>
+      <div style="font-size:9px;color:{TEXT_MUTED};margin-top:4px;text-transform:uppercase;letter-spacing:1px;">cost per month (5K customers)</div>
+    </div>
+    <div style="background:{BG};border-radius:6px;padding:14px;text-align:center;">
+      <div style="font-size:20px;font-weight:800;color:{ACCENT};">+150-400K EUR</div>
+      <div style="font-size:9px;color:{TEXT_MUTED};margin-top:4px;text-transform:uppercase;letter-spacing:1px;">estimated annual revenue uplift</div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;
+              border-top:1px solid {GRID_CLR};padding-top:14px;">
+    <div style="font-size:10.5px;color:{TEXT_MUTED};line-height:1.7;">
+      <b style="color:{TEXT_LT};">How the cost is calculated:</b>
+      Each call sends ~541 input tokens and receives ~278 output tokens.
+      At GPT-4o pricing of $2.50/1M input and $10/1M output tokens,
+      each call costs <b style="color:{AMBER};">~$0.002</b>.
+      For 5,000 active customers receiving monthly recommendations the monthly AI cost is
+      <b style="color:{AMBER};">~$10</b> — against a revenue uplift of
+      <b style="color:{GREEN};">150K-400K EUR/year</b>.
+    </div>
+    <div style="font-size:10.5px;color:{TEXT_MUTED};line-height:1.7;">
+      <b style="color:{TEXT_LT};">LangSmith monitoring cost:</b>
+      Free tier includes <b style="color:{GREEN};">5,000 traces/month</b> at zero cost.
+      For Balando's scale the free tier covers full monitoring with no additional cost.
+      Paid tier starts at $39/month for unlimited traces if scale requires it.
+    </div>
+  </div>
+</div>
+""", sizing_mode="stretch_width")
+
+ls_production = pn.pane.HTML(f"""
+<div style="background:linear-gradient(135deg,{CARD_BG} 0%,#0d1117 100%);
+            border:1px solid rgba(15,110,140,0.2);border-radius:10px;
+            padding:22px 28px;margin-top:8px;margin-bottom:20px;">
+  <div style="font-size:9px;color:{TEAL};font-weight:700;letter-spacing:2px;margin-bottom:14px;">
+    HOW THIS CONNECTS TO BALANDO'S REAL DATA — 3 STEPS
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:14px;">
+    <div style="background:{BG};border-radius:8px;padding:16px;border-top:3px solid {TEAL};">
+      <div style="font-size:22px;margin-bottom:8px;">🛒</div>
+      <div style="font-size:11px;font-weight:700;color:{TEXT_LT};margin-bottom:6px;">Replace H&amp;M Proxy with Balando Data</div>
+      <div style="font-size:10.5px;color:{TEXT_MUTED};line-height:1.65;">dataset_creation.py reads from H&M Kaggle as a proxy. In production point it at Balando's Shopify order export. Same script, same LangSmith setup, real customer data.</div>
+    </div>
+    <div style="background:{BG};border-radius:8px;padding:16px;border-top:3px solid {GREEN};">
+      <div style="font-size:22px;margin-bottom:8px;">⚙️</div>
+      <div style="font-size:11px;font-weight:700;color:{TEXT_LT};margin-bottom:6px;">Automate via n8n</div>
+      <div style="font-size:10.5px;color:{TEXT_MUTED};line-height:1.65;">Connect to the n8n workflow already built. After an order is placed, n8n calls the recommendation engine, GPT-4o generates picks, LangSmith logs the call, Klaviyo sends the email.</div>
+    </div>
+    <div style="background:{BG};border-radius:8px;padding:16px;border-top:3px solid {AMBER};">
+      <div style="font-size:22px;margin-bottom:8px;">📊</div>
+      <div style="font-size:11px;font-weight:700;color:{TEXT_LT};margin-bottom:6px;">Monitor in Real Time</div>
+      <div style="font-size:10.5px;color:{TEXT_MUTED};line-height:1.65;">Every recommendation logged in LangSmith. Chleo can log in at any time and see exactly what the AI recommended, to whom, why, and at what cost. No black boxes — ever.</div>
+    </div>
+  </div>
+  <div style="background:rgba(15,110,140,0.1);border:1px solid {TEAL};
+              border-radius:8px;padding:14px 18px;text-align:center;">
+    <div style="font-size:12px;font-weight:700;color:{TEXT_LT};margin-bottom:4px;">
+      H&amp;M dataset used as proxy · Same DACH market · Same demographics · Same pain points
+    </div>
+    <div style="font-size:10px;color:{TEXT_MUTED};">
+      31M transactions · European fashion · Age 20-65 · Every pattern in this demo exists in Balando's business today
+    </div>
+  </div>
+</div>
+""", sizing_mode="stretch_width")
+
 # ── Main layout ───────────────────────────────────────────────────────────────
 main = pn.Column(
     header,
@@ -833,6 +1044,13 @@ main = pn.Column(
     n8n_cost,
     n8n_production,
     n8n_future,
+    # ── LangSmith Section ────────────────────────────────────────────────────
+    ls_divider,
+    ls_captures,
+    ls_screenshots_header,
+    ls_screenshots,
+    ls_cost,
+    ls_production,
     styles={"background": BG, "padding": "16px"},
     sizing_mode="stretch_width",
 )

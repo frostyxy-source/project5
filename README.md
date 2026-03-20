@@ -27,6 +27,15 @@ project5/
 ├── Procfile                        # Railway deployment config
 ├── README.md                       # This file
 │
+├── assets/                         # Screenshots used in the dashboard
+│   ├── true.png                    # n8n HIGH risk branch screenshot
+│   ├── false.png                   # n8n LOW risk branch screenshot
+│   ├── email.png                   # Return risk alert email screenshot
+│   ├── balando-uc2-recommendations10call.png  # LangSmith 10 runs overview
+│   ├── customerprofile.png         # LangSmith customer input screenshot
+│   ├── recommendations.png         # LangSmith recommendations output screenshot
+│   └── balandolangsmithprompt.png  # LangSmith full prompt screenshot
+│
 ├── research/
 │   ├── sector_research.md          # DACH fashion e-commerce market analysis
 │   ├── opportunities_risks.md      # AI opportunity and risk mapping
@@ -36,8 +45,8 @@ project5/
 │   ├── dataset_creation.py         # Creates LangSmith dataset from H&M data
 │   ├── monitoring_setup.py         # Runs 10 GPT-4o calls with full tracing
 │   ├── monitoring_results/
-│   │   └── summary.md              # Auto-generated monitoring report
-│   ├── .env.example                # Environment variable template
+│   │   ├── summary.md              # Auto-generated monitoring report
+│   │   └── results.json            # Full JSON output of all 10 runs
 │   └── README.md                   # LangSmith setup guide
 │
 ├── n8n/
@@ -183,4 +192,3 @@ Never commit `.env` to GitHub. Use `.env.example` as the template.
 
 ---
 
-*Prepared for Ironhack Data Analytics Bootcamp — Module 5 · March 2026*

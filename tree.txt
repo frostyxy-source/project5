@@ -1,0 +1,41 @@
+Folder PATH listing for volume data
+Volume serial number is 50E9-3BF3
+D:.
+|   .gitignore
+|   app.py
+|   nixpacks.toml
+|   Procfile
+|   README.md
+|   requirements.txt
+|   tree.txt
+|   
++---assets
+|       balando-uc2-recommendations10call.png
+|       balandolangsmithprompt.png
+|       customerprofile.png
+|       email.png
+|       false.png
+|       recommendations.png
+|       true.png
+|       
++---cost_estimation
+|       cost_analysis.md
+|       
++---langsmith
+|   |   dataset_creation.py
+|   |   monitoring_setup.py
+|   |   README.md
+|   |   
+|   \---monitoring_results
+|           results.json
+|           summary.md
+|           
++---n8n
+|       workflow.json
+|       workflow_documentation.md
+|       
+\---research
+        opportunities_risks.md
+        sector_research.md
+        use_cases.md
+        

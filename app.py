@@ -549,18 +549,20 @@ sidebar = pn.Column(
 )
 
 # ── N8N Demo Section ──────────────────────────────────────────────────────────
+GITHUB_RAW = "https://raw.githubusercontent.com/frostyxy-source/project5/main"
+
 def load_screenshot(filename):
-    """Load screenshot from DATA_DIR, return Panel Image or fallback HTML."""
-    path = os.path.join(DATA_DIR, filename)
-    if os.path.exists(path):
+    """Load screenshot — local file first, GitHub raw URL fallback."""
+    local_path = os.path.join(DATA_DIR, filename)
+    if os.path.exists(local_path):
         return pn.pane.Image(
-            path, sizing_mode="stretch_width",
+            local_path, sizing_mode="stretch_width",
             styles={"border-radius": "8px", "border": f"1px solid {GRID_CLR}"}
         )
+    url = f"{GITHUB_RAW}/{filename}"
     return pn.pane.HTML(
-        f'<div style="background:{CARD_BG};border:1px dashed {GRID_CLR};border-radius:8px;'
-        f'padding:40px;text-align:center;color:{TEXT_MUTED};font-size:12px;">'
-        f'📷 {filename}</div>',
+        f'<img src="{url}" style="width:100%;border-radius:8px;'
+        f'border:1px solid {GRID_CLR};display:block;" alt="{filename}" />',
         sizing_mode="stretch_width"
     )
 

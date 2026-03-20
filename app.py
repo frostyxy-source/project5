@@ -549,22 +549,7 @@ sidebar = pn.Column(
 )
 
 # ── N8N Demo Section ──────────────────────────────────────────────────────────
-GITHUB_RAW = "https://raw.githubusercontent.com/frostyxy-source/project5/main"
-
-def load_screenshot(filename):
-    """Load screenshot — local file first, GitHub raw URL fallback."""
-    local_path = os.path.join(DATA_DIR, filename)
-    if os.path.exists(local_path):
-        return pn.pane.Image(
-            local_path, sizing_mode="stretch_width",
-            styles={"border-radius": "8px", "border": f"1px solid {GRID_CLR}"}
-        )
-    url = f"{GITHUB_RAW}/{filename}"
-    return pn.pane.HTML(
-        f'<img src="{url}" style="width:100%;border-radius:8px;'
-        f'border:1px solid {GRID_CLR};display:block;" alt="{filename}" />',
-        sizing_mode="stretch_width"
-    )
+# Screenshots loaded via _img_src() below
 
 n8n_divider = pn.pane.HTML(f"""
 <div style="margin:40px 0 0 0;">
@@ -663,14 +648,27 @@ n8n_screenshots_header = pn.pane.HTML(f"""
 </div>
 """, sizing_mode="stretch_width")
 
-img_true  = load_screenshot("true.png")
-img_false = load_screenshot("false.png")
-img_email = load_screenshot("email.png")
+# Screenshots rendered as pure HTML grid — no Panel layout overhead, no gap
+GITHUB_BASE = "https://raw.githubusercontent.com/frostyxy-source/project5/main"
 
-n8n_screenshots = pn.Row(
-    pn.Column(img_true,  sizing_mode="stretch_width"),
-    pn.Column(img_false, sizing_mode="stretch_width"),
-    pn.Column(img_email, sizing_mode="stretch_width"),
+def _img_src(filename):
+    local = os.path.join(DATA_DIR, filename)
+    if os.path.exists(local):
+        import base64
+        with open(local, "rb") as f:
+            b64 = base64.b64encode(f.read()).decode()
+        return f"data:image/png;base64,{b64}"
+    return f"{GITHUB_BASE}/{filename}"
+
+n8n_screenshots = pn.pane.HTML(
+    f'''<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:0;">
+  <img src="{_img_src("true.png")}"
+       style="width:100%;border-radius:8px;border:1px solid #2A2A4A;display:block;" />
+  <img src="{_img_src("false.png")}"
+       style="width:100%;border-radius:8px;border:1px solid #2A2A4A;display:block;" />
+  <img src="{_img_src("email.png")}"
+       style="width:100%;border-radius:8px;border:1px solid #2A2A4A;display:block;" />
+</div>''',
     sizing_mode="stretch_width",
 )
 

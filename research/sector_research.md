@@ -1,8 +1,8 @@
 # Sector Research: Fashion & Apparel E-Commerce — DACH Region
-**Project:** BI Dashboard Mini Project — AI Insights for Modara GmbH  
+**Project:** BI Dashboard Mini Project — AI Insights for Balando GmbH  
 **Prepared by:** AI Consultant  
 **Date:** March 2026  
-**Client:** Chleo, CEO — Modara GmbH (Frankfurt, 50–250 employees)
+**Client:** Chleo, CEO — Balando GmbH (Frankfurt, 50–250 employees)
 
 ---
 
@@ -40,7 +40,7 @@ Germany is the **European champion of online returns**. This is not just a stati
 - Clothing (31%) and shoes (20%) top the list of returned items in Germany (eCommerce Germany News, Dec 2024)
 - Only **24% of German online shoppers** never return their online orders
 
-**Business impact for an SME like Modara GmbH:** With 50–250 employees and a fashion focus, a 40% return rate on a €5M annual revenue base means potentially **€2M in returned goods**, with direct logistics costs of ~€100K–€200K per year. This is the single highest ROI opportunity for AI intervention.
+**Business impact for an SME like Balando GmbH:** With 50–250 employees and a fashion focus, a 40% return rate on a €5M annual revenue base means potentially **€2M in returned goods**, with direct logistics costs of ~€100K–€200K per year. This is the single highest ROI opportunity for AI intervention.
 
 ### 2.2 Sustainability & Transparency as Consumer Expectations
 
@@ -90,7 +90,7 @@ Germany is the **European champion of online returns**. This is not just a stati
 | Shein / Temu-style | Asian ultra-low-cost | Erodes price tolerance; pressure on margins |
 | ABOUT YOU, Otto | German mid-market | Benchmark for SME-relevant feature sets |
 
-As an SME, Modara GmbH **cannot compete on price or logistics scale** with these players. The winning strategy is: better personalization, lower return friction, and superior customer service — all areas where targeted AI tools deliver disproportionate ROI.
+As an SME, Balando GmbH **cannot compete on price or logistics scale** with these players. The winning strategy is: better personalization, lower return friction, and superior customer service — all areas where targeted AI tools deliver disproportionate ROI.
 
 ---
 
@@ -121,7 +121,7 @@ Any AI implementation for a DACH fashion e-commerce company must account for:
 
 ---
 
-## 6. Summary: Why AI is Relevant for Modara GmbH Right Now
+## 6. Summary: Why AI is Relevant for Balando GmbH Right Now
 
 | Business Problem | AI Solution | Estimated Impact |
 |---|---|---|

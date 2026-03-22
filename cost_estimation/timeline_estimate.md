@@ -137,4 +137,4 @@ Internal staff time: €250/day
 
 *Timeline assumes no major technical blockers. Adjust based on Balando's existing  
 infrastructure complexity and internal team availability.*  
-*Prepared for Ironhack Data Analytics Bootcamp — Module 5 · March 2026*
+

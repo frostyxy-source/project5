@@ -673,6 +673,59 @@ def _img_src(filename):
         return f"data:image/png;base64,{b64}"
     return f"{GITHUB_BASE}/{filename}"
 
+# ── Lightbox CSS + JS ─────────────────────────────────────────────────────────
+lightbox_js = """
+<style>
+.lb-overlay {
+  display:none;position:fixed;z-index:99999;top:0;left:0;
+  width:100%;height:100%;
+  background:rgba(0,0,0,0.82);
+  justify-content:center;align-items:center;
+  cursor:zoom-out;
+}
+.lb-overlay.active { display:flex; }
+.lb-overlay img {
+  max-width:88vw;max-height:88vh;
+  border-radius:10px;
+  box-shadow:0 8px 40px rgba(0,0,0,0.6);
+  cursor:default;
+}
+.lb-close {
+  position:fixed;top:22px;right:28px;
+  font-size:32px;color:white;cursor:pointer;
+  line-height:1;font-weight:300;z-index:100000;
+  opacity:0.85;
+}
+.lb-close:hover { opacity:1; }
+.lb-thumb {
+  cursor:zoom-in;
+  transition:transform 0.15s ease, box-shadow 0.15s ease;
+}
+.lb-thumb:hover {
+  transform:scale(1.03);
+  box-shadow:0 4px 16px rgba(0,0,0,0.18) !important;
+}
+</style>
+<div class="lb-overlay" id="lb-overlay" onclick="closeLB(event)">
+  <span class="lb-close" onclick="document.getElementById('lb-overlay').classList.remove('active')">\u2715</span>
+  <img id="lb-img" src="" alt="expanded screenshot" onclick="event.stopPropagation()" />
+</div>
+<script>
+function openLB(src) {
+  document.getElementById('lb-img').src = src;
+  document.getElementById('lb-overlay').classList.add('active');
+}
+function closeLB(e) {
+  if (e.target.id === 'lb-overlay') {
+    document.getElementById('lb-overlay').classList.remove('active');
+  }
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') document.getElementById('lb-overlay').classList.remove('active');
+});
+</script>
+"""
+
 n8n_screenshots = pn.pane.HTML(
     lightbox_js +
     f'''<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:0;">

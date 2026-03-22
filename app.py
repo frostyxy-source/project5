@@ -58,8 +58,8 @@ SCREENSHOTS = ["true.png", "false.png", "email.png",
 def load_data():
     pathlib.Path(DATA_DIR).mkdir(parents=True, exist_ok=True)
 
-    all_files = EXPECTED + SCREENSHOTS
-    if not all(os.path.exists(os.path.join(DATA_DIR, f)) for f in all_files):
+    # Only check the large CSVs — if they exist the volume is populated
+    if not all(os.path.exists(os.path.join(DATA_DIR, f)) for f in EXPECTED):
         print("Downloading data and assets from Google Drive...")
         gdown.download_folder(id=FOLDER_ID, output=DATA_DIR, quiet=False, use_cookies=False)
 
@@ -674,83 +674,41 @@ def _img_src(filename):
     return f"{GITHUB_BASE}/{filename}"
 
 # ── Lightbox CSS + JS ─────────────────────────────────────────────────────────
-lightbox_js = """
-<style>
-.lb-wrap { position:relative; display:block; }
-.lb-thumb {
-  cursor:zoom-in;
-  transition:transform 0.15s ease;
-}
-.lb-thumb:hover { transform:scale(1.03); }
-.lb-modal {
-  display:none;
-  position:fixed;
-  z-index:99999;
-  top:0;left:0;width:100%;height:100%;
-  background:rgba(0,0,0,0.88);
-  align-items:center;
-  justify-content:center;
-}
-.lb-modal.open { display:flex; }
-.lb-modal-inner {
-  position:relative;
-  max-width:90%;
-  max-height:90%;
-}
-.lb-modal-inner img {
-  max-width:100%;
-  max-height:85vh;
-  border-radius:10px;
-  box-shadow:0 8px 40px rgba(0,0,0,0.5);
-  display:block;
-}
-.lb-x {
-  position:absolute;top:-16px;right:-16px;
-  width:32px;height:32px;background:#C9956A;
-  border-radius:50%;color:white;font-size:18px;font-weight:bold;
-  text-align:center;line-height:32px;cursor:pointer;
-}
-</style>
-<div class="lb-modal" id="lbm" onclick="if(event.target===this)closeLB()">
-  <div class="lb-modal-inner">
-    <div class="lb-x" onclick="closeLB()">&#x2715;</div>
-    <img id="lbmi" src="" />
-  </div>
-</div>
-<script>
-function openLB(src){
-  document.getElementById('lbmi').src=src;
-  document.getElementById('lbm').classList.add('open');
-}
-function closeLB(){
-  document.getElementById('lbm').classList.remove('open');
-}
-document.addEventListener('keydown',function(e){
-  if(e.key==='Escape') closeLB();
-});
-</script>
-"""
+lightbox_js = ""  # no JS needed — using target=_blank
+
 
 n8n_screenshots = pn.pane.HTML(
     lightbox_js +
     f'''<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:0;">
   <div style="background:#EAF4FB;border:2px solid #B8D9EE;border-radius:10px;
               padding:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
-    <img src="{_img_src("true.png")}" class="lb-thumb"
-         onclick="openLB(this.src)"
-         style="width:100%;border-radius:6px;display:block;" />
+    <a href="{_img_src("true.png")}" target="_blank" title="Click to open full size">
+      <img src="{_img_src("true.png")}"
+           style="width:100%;border-radius:6px;display:block;cursor:zoom-in;
+                  transition:transform 0.15s ease;"
+           onmouseover="this.style.transform='scale(1.03)'"
+           onmouseout="this.style.transform='scale(1)'" />
+    </a>
   </div>
   <div style="background:#EAF4FB;border:2px solid #B8D9EE;border-radius:10px;
               padding:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
-    <img src="{_img_src("false.png")}" class="lb-thumb"
-         onclick="openLB(this.src)"
-         style="width:100%;border-radius:6px;display:block;" />
+    <a href="{_img_src("false.png")}" target="_blank" title="Click to open full size">
+      <img src="{_img_src("false.png")}"
+           style="width:100%;border-radius:6px;display:block;cursor:zoom-in;
+                  transition:transform 0.15s ease;"
+           onmouseover="this.style.transform='scale(1.03)'"
+           onmouseout="this.style.transform='scale(1)'" />
+    </a>
   </div>
   <div style="background:#EAF4FB;border:2px solid #B8D9EE;border-radius:10px;
               padding:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
-    <img src="{_img_src("email.png")}" class="lb-thumb"
-         onclick="openLB(this.src)"
-         style="width:100%;border-radius:6px;display:block;" />
+    <a href="{_img_src("email.png")}" target="_blank" title="Click to open full size">
+      <img src="{_img_src("email.png")}"
+           style="width:100%;border-radius:6px;display:block;cursor:zoom-in;
+                  transition:transform 0.15s ease;"
+           onmouseover="this.style.transform='scale(1.03)'"
+           onmouseout="this.style.transform='scale(1)'" />
+    </a>
   </div>
 </div>''',
     sizing_mode="stretch_width",
@@ -997,27 +955,43 @@ ls_screenshots = pn.pane.HTML(
     f'''<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:8px;">
   <div style="background:#EAF4FB;border:2px solid #B8D9EE;border-radius:10px;
               padding:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
-    <img src="{_ls_img("balando-uc2-recommendations10call.png")}" class="lb-thumb"
-         onclick="openLB(this.src)"
-         style="width:100%;border-radius:6px;display:block;" />
+    <a href="{_ls_img("balando-uc2-recommendations10call.png")}" target="_blank" title="Click to open full size">
+      <img src="{_ls_img("balando-uc2-recommendations10call.png")}"
+           style="width:100%;border-radius:6px;display:block;cursor:zoom-in;
+                  transition:transform 0.15s ease;"
+           onmouseover="this.style.transform='scale(1.03)'"
+           onmouseout="this.style.transform='scale(1)'" />
+    </a>
   </div>
   <div style="background:#EAF4FB;border:2px solid #B8D9EE;border-radius:10px;
               padding:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
-    <img src="{_ls_img("customerprofile.png")}" class="lb-thumb"
-         onclick="openLB(this.src)"
-         style="width:100%;border-radius:6px;display:block;" />
+    <a href="{_ls_img("customerprofile.png")}" target="_blank" title="Click to open full size">
+      <img src="{_ls_img("customerprofile.png")}"
+           style="width:100%;border-radius:6px;display:block;cursor:zoom-in;
+                  transition:transform 0.15s ease;"
+           onmouseover="this.style.transform='scale(1.03)'"
+           onmouseout="this.style.transform='scale(1)'" />
+    </a>
   </div>
   <div style="background:#EAF4FB;border:2px solid #B8D9EE;border-radius:10px;
               padding:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
-    <img src="{_ls_img("recommendations.png")}" class="lb-thumb"
-         onclick="openLB(this.src)"
-         style="width:100%;border-radius:6px;display:block;" />
+    <a href="{_ls_img("recommendations.png")}" target="_blank" title="Click to open full size">
+      <img src="{_ls_img("recommendations.png")}"
+           style="width:100%;border-radius:6px;display:block;cursor:zoom-in;
+                  transition:transform 0.15s ease;"
+           onmouseover="this.style.transform='scale(1.03)'"
+           onmouseout="this.style.transform='scale(1)'" />
+    </a>
   </div>
   <div style="background:#EAF4FB;border:2px solid #B8D9EE;border-radius:10px;
               padding:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
-    <img src="{_ls_img("balandolangsmithprompt.png")}" class="lb-thumb"
-         onclick="openLB(this.src)"
-         style="width:100%;border-radius:6px;display:block;" />
+    <a href="{_ls_img("balandolangsmithprompt.png")}" target="_blank" title="Click to open full size">
+      <img src="{_ls_img("balandolangsmithprompt.png")}"
+           style="width:100%;border-radius:6px;display:block;cursor:zoom-in;
+                  transition:transform 0.15s ease;"
+           onmouseover="this.style.transform='scale(1.03)'"
+           onmouseout="this.style.transform='scale(1)'" />
+    </a>
   </div>
 </div>''',
     sizing_mode="stretch_width",

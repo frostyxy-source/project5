@@ -676,52 +676,57 @@ def _img_src(filename):
 # ── Lightbox CSS + JS ─────────────────────────────────────────────────────────
 lightbox_js = """
 <style>
-.lb-overlay {
-  display:none;position:fixed;z-index:99999;top:0;left:0;
-  width:100%;height:100%;
-  background:rgba(0,0,0,0.82);
-  justify-content:center;align-items:center;
-  cursor:zoom-out;
-}
-.lb-overlay.active { display:flex; }
-.lb-overlay img {
-  max-width:88vw;max-height:88vh;
-  border-radius:10px;
-  box-shadow:0 8px 40px rgba(0,0,0,0.6);
-  cursor:default;
-}
-.lb-close {
-  position:fixed;top:22px;right:28px;
-  font-size:32px;color:white;cursor:pointer;
-  line-height:1;font-weight:300;z-index:100000;
-  opacity:0.85;
-}
-.lb-close:hover { opacity:1; }
+.lb-wrap { position:relative; display:block; }
 .lb-thumb {
   cursor:zoom-in;
-  transition:transform 0.15s ease, box-shadow 0.15s ease;
+  transition:transform 0.15s ease;
 }
-.lb-thumb:hover {
-  transform:scale(1.03);
-  box-shadow:0 4px 16px rgba(0,0,0,0.18) !important;
+.lb-thumb:hover { transform:scale(1.03); }
+.lb-modal {
+  display:none;
+  position:fixed;
+  z-index:99999;
+  top:0;left:0;width:100%;height:100%;
+  background:rgba(0,0,0,0.88);
+  align-items:center;
+  justify-content:center;
+}
+.lb-modal.open { display:flex; }
+.lb-modal-inner {
+  position:relative;
+  max-width:90%;
+  max-height:90%;
+}
+.lb-modal-inner img {
+  max-width:100%;
+  max-height:85vh;
+  border-radius:10px;
+  box-shadow:0 8px 40px rgba(0,0,0,0.5);
+  display:block;
+}
+.lb-x {
+  position:absolute;top:-16px;right:-16px;
+  width:32px;height:32px;background:#C9956A;
+  border-radius:50%;color:white;font-size:18px;font-weight:bold;
+  text-align:center;line-height:32px;cursor:pointer;
 }
 </style>
-<div class="lb-overlay" id="lb-overlay" onclick="closeLB(event)">
-  <span class="lb-close" onclick="document.getElementById('lb-overlay').classList.remove('active')">\u2715</span>
-  <img id="lb-img" src="" alt="expanded screenshot" onclick="event.stopPropagation()" />
+<div class="lb-modal" id="lbm" onclick="if(event.target===this)closeLB()">
+  <div class="lb-modal-inner">
+    <div class="lb-x" onclick="closeLB()">&#x2715;</div>
+    <img id="lbmi" src="" />
+  </div>
 </div>
 <script>
-function openLB(src) {
-  document.getElementById('lb-img').src = src;
-  document.getElementById('lb-overlay').classList.add('active');
+function openLB(src){
+  document.getElementById('lbmi').src=src;
+  document.getElementById('lbm').classList.add('open');
 }
-function closeLB(e) {
-  if (e.target.id === 'lb-overlay') {
-    document.getElementById('lb-overlay').classList.remove('active');
-  }
+function closeLB(){
+  document.getElementById('lbm').classList.remove('open');
 }
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') document.getElementById('lb-overlay').classList.remove('active');
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape') closeLB();
 });
 </script>
 """

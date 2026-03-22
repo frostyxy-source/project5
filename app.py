@@ -50,7 +50,10 @@ PLOTLY_LAYOUT = dict(
 DATA_DIR    = "/tmp/data"
 FOLDER_ID   = "1aJZulbtsffKJK54CkvY62eS2n7iIllwq"
 EXPECTED    = ["articles_sample.csv", "customers_sample.csv", "transactions_sample_500k.csv"]
-SCREENSHOTS = ["true.png", "false.png", "email.png"]
+SCREENSHOTS = ["true.png", "false.png", "email.png",
+               "balando-uc2-recommendations10call.png",
+               "customerprofile.png", "recommendations.png",
+               "balandolangsmithprompt.png"]
 
 def load_data():
     pathlib.Path(DATA_DIR).mkdir(parents=True, exist_ok=True)
@@ -103,7 +106,8 @@ df = load_data()
 # ── Widgets ───────────────────────────────────────────────────────────────────
 date_range = pn.widgets.DateRangeSlider(
     name="Date range",
-    width=224,
+    width=210,
+    margin=(5, 0, 5, 0),
     start=df["t_dat"].min(),
     end=df["t_dat"].max(),
     value=(df["t_dat"].min(), df["t_dat"].max()),
@@ -670,20 +674,24 @@ def _img_src(filename):
     return f"{GITHUB_BASE}/{filename}"
 
 n8n_screenshots = pn.pane.HTML(
+    lightbox_js +
     f'''<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:0;">
   <div style="background:#EAF4FB;border:2px solid #B8D9EE;border-radius:10px;
               padding:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
-    <img src="{_img_src("true.png")}"
+    <img src="{_img_src("true.png")}" class="lb-thumb"
+         onclick="openLB(this.src)"
          style="width:100%;border-radius:6px;display:block;" />
   </div>
   <div style="background:#EAF4FB;border:2px solid #B8D9EE;border-radius:10px;
               padding:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
-    <img src="{_img_src("false.png")}"
+    <img src="{_img_src("false.png")}" class="lb-thumb"
+         onclick="openLB(this.src)"
          style="width:100%;border-radius:6px;display:block;" />
   </div>
   <div style="background:#EAF4FB;border:2px solid #B8D9EE;border-radius:10px;
               padding:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
-    <img src="{_img_src("email.png")}"
+    <img src="{_img_src("email.png")}" class="lb-thumb"
+         onclick="openLB(this.src)"
          style="width:100%;border-radius:6px;display:block;" />
   </div>
 </div>''',
@@ -931,22 +939,26 @@ ls_screenshots = pn.pane.HTML(
     f'''<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:8px;">
   <div style="background:#EAF4FB;border:2px solid #B8D9EE;border-radius:10px;
               padding:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
-    <img src="{_ls_img("balando-uc2-recommendations10call.png")}"
+    <img src="{_ls_img("balando-uc2-recommendations10call.png")}" class="lb-thumb"
+         onclick="openLB(this.src)"
          style="width:100%;border-radius:6px;display:block;" />
   </div>
   <div style="background:#EAF4FB;border:2px solid #B8D9EE;border-radius:10px;
               padding:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
-    <img src="{_ls_img("customerprofile.png")}"
+    <img src="{_ls_img("customerprofile.png")}" class="lb-thumb"
+         onclick="openLB(this.src)"
          style="width:100%;border-radius:6px;display:block;" />
   </div>
   <div style="background:#EAF4FB;border:2px solid #B8D9EE;border-radius:10px;
               padding:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
-    <img src="{_ls_img("recommendations.png")}"
+    <img src="{_ls_img("recommendations.png")}" class="lb-thumb"
+         onclick="openLB(this.src)"
          style="width:100%;border-radius:6px;display:block;" />
   </div>
   <div style="background:#EAF4FB;border:2px solid #B8D9EE;border-radius:10px;
               padding:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
-    <img src="{_ls_img("balandolangsmithprompt.png")}"
+    <img src="{_ls_img("balandolangsmithprompt.png")}" class="lb-thumb"
+         onclick="openLB(this.src)"
          style="width:100%;border-radius:6px;display:block;" />
   </div>
 </div>''',

@@ -682,7 +682,7 @@ n8n_screenshots = pn.pane.HTML(
     f'''<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:0;">
   <div style="background:#EAF4FB;border:2px solid #B8D9EE;border-radius:10px;
               padding:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
-    <a href="{_img_src("true.png")}" target="_blank" title="Click to open full size">
+    <a href="{GITHUB_BASE}/true.png" target="_blank" title="Click to open full size">
       <img src="{_img_src("true.png")}"
            style="width:100%;border-radius:6px;display:block;cursor:zoom-in;
                   transition:transform 0.15s ease;"
@@ -692,7 +692,7 @@ n8n_screenshots = pn.pane.HTML(
   </div>
   <div style="background:#EAF4FB;border:2px solid #B8D9EE;border-radius:10px;
               padding:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
-    <a href="{_img_src("false.png")}" target="_blank" title="Click to open full size">
+    <a href="{GITHUB_BASE}/false.png" target="_blank" title="Click to open full size">
       <img src="{_img_src("false.png")}"
            style="width:100%;border-radius:6px;display:block;cursor:zoom-in;
                   transition:transform 0.15s ease;"
@@ -702,7 +702,7 @@ n8n_screenshots = pn.pane.HTML(
   </div>
   <div style="background:#EAF4FB;border:2px solid #B8D9EE;border-radius:10px;
               padding:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
-    <a href="{_img_src("email.png")}" target="_blank" title="Click to open full size">
+    <a href="{GITHUB_BASE}/email.png" target="_blank" title="Click to open full size">
       <img src="{_img_src("email.png")}"
            style="width:100%;border-radius:6px;display:block;cursor:zoom-in;
                   transition:transform 0.15s ease;"
@@ -955,7 +955,7 @@ ls_screenshots = pn.pane.HTML(
     f'''<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:8px;">
   <div style="background:#EAF4FB;border:2px solid #B8D9EE;border-radius:10px;
               padding:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
-    <a href="{_ls_img("balando-uc2-recommendations10call.png")}" target="_blank" title="Click to open full size">
+    <a href="{GH_RAW}/balando-uc2-recommendations10call.png" target="_blank" title="Click to open full size">
       <img src="{_ls_img("balando-uc2-recommendations10call.png")}"
            style="width:100%;border-radius:6px;display:block;cursor:zoom-in;
                   transition:transform 0.15s ease;"
@@ -965,7 +965,7 @@ ls_screenshots = pn.pane.HTML(
   </div>
   <div style="background:#EAF4FB;border:2px solid #B8D9EE;border-radius:10px;
               padding:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
-    <a href="{_ls_img("customerprofile.png")}" target="_blank" title="Click to open full size">
+    <a href="{GH_RAW}/customerprofile.png" target="_blank" title="Click to open full size">
       <img src="{_ls_img("customerprofile.png")}"
            style="width:100%;border-radius:6px;display:block;cursor:zoom-in;
                   transition:transform 0.15s ease;"
@@ -975,7 +975,7 @@ ls_screenshots = pn.pane.HTML(
   </div>
   <div style="background:#EAF4FB;border:2px solid #B8D9EE;border-radius:10px;
               padding:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
-    <a href="{_ls_img("recommendations.png")}" target="_blank" title="Click to open full size">
+    <a href="{GH_RAW}/recommendations.png" target="_blank" title="Click to open full size">
       <img src="{_ls_img("recommendations.png")}"
            style="width:100%;border-radius:6px;display:block;cursor:zoom-in;
                   transition:transform 0.15s ease;"
@@ -985,7 +985,7 @@ ls_screenshots = pn.pane.HTML(
   </div>
   <div style="background:#EAF4FB;border:2px solid #B8D9EE;border-radius:10px;
               padding:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
-    <a href="{_ls_img("balandolangsmithprompt.png")}" target="_blank" title="Click to open full size">
+    <a href="{GH_RAW}/balandolangsmithprompt.png" target="_blank" title="Click to open full size">
       <img src="{_ls_img("balandolangsmithprompt.png")}"
            style="width:100%;border-radius:6px;display:block;cursor:zoom-in;
                   transition:transform 0.15s ease;"

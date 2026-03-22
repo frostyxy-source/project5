@@ -670,13 +670,22 @@ def _img_src(filename):
     return f"{GITHUB_BASE}/{filename}"
 
 n8n_screenshots = pn.pane.HTML(
-    f'''<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:0;">
-  <img src="{_img_src("true.png")}"
-       style="width:100%;border-radius:8px;border:1px solid #2A2A4A;display:block;" />
-  <img src="{_img_src("false.png")}"
-       style="width:100%;border-radius:8px;border:1px solid #2A2A4A;display:block;" />
-  <img src="{_img_src("email.png")}"
-       style="width:100%;border-radius:8px;border:1px solid #2A2A4A;display:block;" />
+    f'''<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:0;">
+  <div style="background:#EAF4FB;border:2px solid #B8D9EE;border-radius:10px;
+              padding:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
+    <img src="{_img_src("true.png")}"
+         style="width:100%;border-radius:6px;display:block;" />
+  </div>
+  <div style="background:#EAF4FB;border:2px solid #B8D9EE;border-radius:10px;
+              padding:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
+    <img src="{_img_src("false.png")}"
+         style="width:100%;border-radius:6px;display:block;" />
+  </div>
+  <div style="background:#EAF4FB;border:2px solid #B8D9EE;border-radius:10px;
+              padding:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
+    <img src="{_img_src("email.png")}"
+         style="width:100%;border-radius:6px;display:block;" />
+  </div>
 </div>''',
     sizing_mode="stretch_width",
 )
@@ -919,15 +928,27 @@ ls_screenshots_header = pn.pane.HTML(f"""
 """, sizing_mode="stretch_width")
 
 ls_screenshots = pn.pane.HTML(
-    f'''<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
-  <img src="{_ls_img("balando-uc2-recommendations10call.png")}"
-       style="width:100%;border-radius:8px;border:1px solid #2A2A4A;display:block;" />
-  <img src="{_ls_img("customerprofile.png")}"
-       style="width:100%;border-radius:8px;border:1px solid #2A2A4A;display:block;" />
-  <img src="{_ls_img("recommendations.png")}"
-       style="width:100%;border-radius:8px;border:1px solid #2A2A4A;display:block;" />
-  <img src="{_ls_img("balandolangsmithprompt.png")}"
-       style="width:100%;border-radius:8px;border:1px solid #2A2A4A;display:block;" />
+    f'''<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:8px;">
+  <div style="background:#EAF4FB;border:2px solid #B8D9EE;border-radius:10px;
+              padding:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
+    <img src="{_ls_img("balando-uc2-recommendations10call.png")}"
+         style="width:100%;border-radius:6px;display:block;" />
+  </div>
+  <div style="background:#EAF4FB;border:2px solid #B8D9EE;border-radius:10px;
+              padding:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
+    <img src="{_ls_img("customerprofile.png")}"
+         style="width:100%;border-radius:6px;display:block;" />
+  </div>
+  <div style="background:#EAF4FB;border:2px solid #B8D9EE;border-radius:10px;
+              padding:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
+    <img src="{_ls_img("recommendations.png")}"
+         style="width:100%;border-radius:6px;display:block;" />
+  </div>
+  <div style="background:#EAF4FB;border:2px solid #B8D9EE;border-radius:10px;
+              padding:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
+    <img src="{_ls_img("balandolangsmithprompt.png")}"
+         style="width:100%;border-radius:6px;display:block;" />
+  </div>
 </div>''',
     sizing_mode="stretch_width",
 )

@@ -564,20 +564,20 @@ n8n_divider = pn.pane.HTML(f"""
 <div style="margin:40px 0 0 0;">
   <div style="height:3px;background:linear-gradient(90deg,{ACCENT},{TEAL},{PURPLE});
               border-radius:2px;margin-bottom:28px;"></div>
-  <div style="background:linear-gradient(135deg,{CARD_BG} 0%,#0d1117 100%);
-              border:1px solid rgba(233,69,96,0.25);border-radius:12px;
+  <div style="background:#3D2B1F;
+              border:1px solid rgba(201,149,106,0.4);border-radius:12px;
               padding:28px 32px;margin-bottom:8px;">
     <div style="font-size:9px;color:{ACCENT};font-weight:700;letter-spacing:3px;
                 text-transform:uppercase;margin-bottom:10px;">
       ⚡ LIVE IMPLEMENTATION DEMO — USE CASE 3
     </div>
-    <div style="font-size:26px;font-weight:800;color:{TEXT_LT};line-height:1.25;margin-bottom:10px;">
+    <div style="font-size:26px;font-weight:800;color:#F5EFE6;line-height:1.25;margin-bottom:10px;">
       Automated AI Return Risk Assistant
       <span style="color:{ACCENT};"> Proposal for Chleo &amp; Balando GmbH</span>
     </div>
-    <div style="font-size:13px;color:{TEXT_MUTED};max-width:820px;line-height:1.7;">
+    <div style="font-size:13px;color:#C8BAA8;max-width:820px;line-height:1.7;">
       The workflow below was built and tested live during this engagement using
-      <b style="color:{TEXT_LT};">n8n Cloud + GPT-4o</b>.
+      <b style="color:#F5EFE6;">n8n Cloud + GPT-4o</b>.
       It demonstrates exactly how Balando's return risk alerts would work in production —
       a real order triggers a real AI assessment and a branded email lands in the operations
       team's inbox within seconds. Every decision is logged and fully auditable.

@@ -23,7 +23,7 @@ warnings.filterwarnings("ignore")
 pn.extension("plotly", sizing_mode="stretch_width")  # NO template= here
 
 # ── Colours — Warm Cream / Luxury Fashion (Chloé / Bottega palette) ──────────
-BG         = "#FAF7F2"   # warm cream background
+BG         = "#EDE8DF"   # warm cream background — slightly deeper
 CARD_BG    = "#FFFFFF"   # pure white cards
 ACCENT     = "#C9956A"   # warm terracotta / camel
 TEAL       = "#6B8F71"   # soft sage green
@@ -129,7 +129,7 @@ def insight_box(uc_num, uc_label, body_html, colour=TEAL):
     icons = {"1": "🔮", "2": "🎯", "3": "💬"}
     icon  = icons.get(str(uc_num), "💡")
     return pn.pane.HTML(f"""
-    <div style="background:#FDFAF6;border-left:4px solid {colour};
+    <div style="background:#F5EFE6;border-left:4px solid {colour};
                 border-radius:6px;padding:14px 18px;margin-top:6px;margin-bottom:8px;
                 box-shadow:0 1px 6px rgba(0,0,0,0.05);">
       <div style="font-size:9px;color:{colour};font-weight:700;letter-spacing:2px;
@@ -351,7 +351,7 @@ i_returns  = insight_box(1, "Return Rate Reduction",
 # ── Layout ────────────────────────────────────────────────────────────────────
 header = pn.pane.HTML(f"""
 <div style="position:relative;overflow:hidden;
-            background:linear-gradient(135deg,#FAF7F2 0%,#F5EFE6 100%);
+            background:linear-gradient(135deg,#EDE8DF 0%,#E5DDD0 100%);
             padding:36px 40px 32px;border-bottom:2px solid #E8E0D5;">
 
   <!-- Fashion SVG background decorations -->
@@ -797,12 +797,12 @@ n8n_future = pn.pane.HTML(f"""
          GREEN, "BONUS"),
     ]])}
   </div>
-  <div style="margin-top:16px;background:rgba(233,69,96,0.08);border:1px solid {ACCENT};
+  <div style="margin-top:16px;background:#3D2B1F;border:1px solid {ACCENT};
               border-radius:8px;padding:16px 20px;text-align:center;">
-    <div style="font-size:13px;font-weight:700;color:{TEXT_LT};margin-bottom:4px;">
+    <div style="font-size:13px;font-weight:700;color:#F5EFE6;margin-bottom:4px;">
       All four use cases. Same stack. Phased rollout. Full transparency.
     </div>
-    <div style="font-size:11px;color:{TEXT_MUTED};">
+    <div style="font-size:11px;color:#C8BAA8;">
       Every AI decision logged in real time · Human override on every automated action ·
       No black boxes · No vendor lock-in · Built for a team of 50–250, not 5,000.
     </div>
@@ -827,23 +827,23 @@ ls_divider = pn.pane.HTML(f"""
 <div style="margin:40px 0 0 0;">
   <div style="height:3px;background:linear-gradient(90deg,{TEAL},{GREEN},{AMBER});
               border-radius:2px;margin-bottom:28px;"></div>
-  <div style="background:linear-gradient(135deg,{CARD_BG} 0%,#0d1117 100%);
-              border:1px solid rgba(15,110,140,0.35);border-radius:12px;
+  <div style="background:#1E3028;
+              border:1px solid rgba(107,143,113,0.4);border-radius:12px;
               padding:28px 32px;margin-bottom:8px;">
     <div style="font-size:9px;color:{TEAL};font-weight:700;letter-spacing:3px;
                 text-transform:uppercase;margin-bottom:10px;">
       MONITORING DEMO — USE CASE 2
     </div>
-    <div style="font-size:26px;font-weight:800;color:{TEXT_LT};line-height:1.25;margin-bottom:10px;">
+    <div style="font-size:26px;font-weight:800;color:#F0F5F1;line-height:1.25;margin-bottom:10px;">
       LangSmith Monitoring —
       <span style="color:{TEAL};"> The Answer to the Black Box Problem</span>
     </div>
-    <div style="font-size:13px;color:{TEXT_MUTED};max-width:820px;line-height:1.7;">
-      Chleo asked: <b style="color:{TEXT_LT};">"AI is a black box — I cannot see what it is doing."</b>
+    <div style="font-size:13px;color:#B8CCBE;max-width:820px;line-height:1.7;">
+      Chleo asked: <b style="color:#F0F5F1;">"AI is a black box — I cannot see what it is doing."</b>
       This is the direct answer. Every GPT-4o recommendation call is fully logged in LangSmith —
       the exact customer profile sent in, the exact recommendations returned, token usage, latency,
       and cost per call. Nothing is hidden. Every decision is auditable, timestamped and searchable.
-      Built using <b style="color:{TEXT_LT};">LangChain + GPT-4o + real H&amp;M customer data</b>
+      Built using <b style="color:#F0F5F1;">LangChain + GPT-4o + real H&amp;M customer data</b>
       as a proxy for Balando's own customer base.
     </div>
   </div>
@@ -1021,12 +1021,12 @@ ls_production = pn.pane.HTML(f"""
       <div style="font-size:10.5px;color:{TEXT_MUTED};line-height:1.65;">Every recommendation logged in LangSmith. Chleo can log in at any time and see exactly what the AI recommended, to whom, why, and at what cost. No black boxes — ever.</div>
     </div>
   </div>
-  <div style="background:rgba(15,110,140,0.1);border:1px solid {TEAL};
+  <div style="background:#1E3028;border:1px solid {TEAL};
               border-radius:8px;padding:14px 18px;text-align:center;">
-    <div style="font-size:12px;font-weight:700;color:{TEXT_LT};margin-bottom:4px;">
+    <div style="font-size:12px;font-weight:700;color:#F0F5F1;margin-bottom:4px;">
       H&amp;M dataset used as proxy · Same DACH market · Same demographics · Same pain points
     </div>
-    <div style="font-size:10px;color:{TEXT_MUTED};">
+    <div style="font-size:10px;color:#B8CCBE;">
       31M transactions · European fashion · Age 20-65 · Every pattern in this demo exists in Balando's business today
     </div>
   </div>
@@ -1081,7 +1081,7 @@ main = pn.Column(
     ls_screenshots,
     ls_cost,
     ls_production,
-    styles={"background": "#FAF7F2", "padding": "16px"},
+    styles={"background": "#EDE8DF", "padding": "16px"},
     sizing_mode="stretch_width",
 )
 
